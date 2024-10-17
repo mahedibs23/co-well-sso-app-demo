@@ -60,15 +60,17 @@ scalable, maintainable codebase.
     - Version: 3.24.3
 - Dart SDK: Included with Flutter
     - Version: 3.5.3
+- Git: [Install Git](https://git-scm.com/downloads)
+    - Version: 2.33.0
 
 ### Installation
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/yourusername/flutter-boilerplate.git
-   cd flutter-boilerplate
+   git clone <repo-url>
+   cd <repo-name>
    ```
-1. **Set up FVM**:
+1. **Set up Flutter version using FVM**:
    ```bash
    fvm install 3.24.3
    fvm use 3.24.3
