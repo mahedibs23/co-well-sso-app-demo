@@ -24,7 +24,7 @@ passwords, and updating the necessary configuration files.
    attributes to suit your organization.
    ```groovy
    // Parameterized DName attributes
-   def commonName = "John Doe"
+   def fullName = "John Doe"
    def organizationalUnit = "Dev"
    def organizationName = "MyOrg"
    def localityName = "CityX"
