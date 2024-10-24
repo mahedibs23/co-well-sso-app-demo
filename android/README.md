@@ -20,7 +20,19 @@ passwords, and updating the necessary configuration files.
 
 - Open your existing Android project where the `generateKeystores.gradle` script is already set up.
 
-2. **Run the Keystore Generation Task**:
+2. Open the `generateKeystores.gradle` file in your project and Change the values of these
+   attributes to suit your organization.
+   ```groovy
+   // Parameterized DName attributes
+   def commonName = "John Doe"
+   def organizationalUnit = "Dev"
+   def organizationName = "MyOrg"
+   def localityName = "CityX"
+   def stateName = "StateX"
+   def countryCode = "US"
+   ```
+
+3. **Run the Keystore Generation Task**:
 
 - Open a terminal window in your project directory.
 - Execute the following command to generate the keystores:
@@ -29,7 +41,7 @@ passwords, and updating the necessary configuration files.
    ./gradlew generateKeystores
    ```
 
-3. **Output Structure**:
+4. **Output Structure**:
 
 - After running the command, the following will occur:
     - A `keystore` directory will be created in your project. This directory will contain:
@@ -37,7 +49,7 @@ passwords, and updating the necessary configuration files.
         - **`credentials.txt`**: A text file containing the generated credentials (keystore names,
           aliases, and passwords).
 
-4. **Updated Configuration**:
+5. **Updated Configuration**:
 
 - The script will automatically update your `local.properties` file with the necessary properties
   required for the `signingConfigs` block in your app-level `build.gradle` file. You do not need to
