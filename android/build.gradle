@@ -28,3 +28,6 @@ subprojects {
 tasks.register("clean", Delete) {
     delete rootProject.buildDir
 }
+
+// This snippet is used to generate keystore files for different flavors
+apply from: 'generateKeystores.gradle'
