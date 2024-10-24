@@ -67,6 +67,57 @@ android {
         main.java.srcDirs += 'src/app/kotlin'
     }
 
+    signingConfigs {
+        flavor_devDebug {
+            storeFile project.rootProject.file("keystore/flavor_devDebug.jks")
+            storePassword project.getSecretKeys("flavor_devDebug.storePassword")
+            keyAlias "flavor_devDebug"
+            keyPassword project.getSecretKeys("flavor_devDebug.keyPassword")
+        }
+        flavor_devRelease {
+            storeFile project.rootProject.file("keystore/flavor_devRelease.jks")
+            storePassword project.getSecretKeys("flavor_devRelease.storePassword")
+            keyAlias "flavor_devRelease"
+            keyPassword project.getSecretKeys("flavor_devRelease.keyPassword")
+        }
+        flavor_testDebug {
+            storeFile project.rootProject.file("keystore/flavor_testDebug.jks")
+            storePassword project.getSecretKeys("flavor_testDebug.storePassword")
+            keyAlias "flavor_testDebug"
+            keyPassword project.getSecretKeys("flavor_testDebug.keyPassword")
+        }
+        flavor_testRelease {
+            storeFile project.rootProject.file("keystore/flavor_testRelease.jks")
+            storePassword project.getSecretKeys("flavor_testRelease.storePassword")
+            keyAlias "flavor_testRelease"
+            keyPassword project.getSecretKeys("flavor_testRelease.keyPassword")
+        }
+        flavor_stagingDebug {
+            storeFile project.rootProject.file("keystore/flavor_stagingDebug.jks")
+            storePassword project.getSecretKeys("flavor_stagingDebug.storePassword")
+            keyAlias "flavor_stagingDebug"
+            keyPassword project.getSecretKeys("flavor_stagingDebug.keyPassword")
+        }
+        flavor_stagingRelease {
+            storeFile project.rootProject.file("keystore/flavor_stagingRelease.jks")
+            storePassword project.getSecretKeys("flavor_stagingRelease.storePassword")
+            keyAlias "flavor_stagingRelease"
+            keyPassword project.getSecretKeys("flavor_stagingRelease.keyPassword")
+        }
+        flavor_prodDebug {
+            storeFile project.rootProject.file("keystore/flavor_prodDebug.jks")
+            storePassword project.getSecretKeys("flavor_prodDebug.storePassword")
+            keyAlias "flavor_prodDebug"
+            keyPassword project.getSecretKeys("flavor_prodDebug.keyPassword")
+        }
+        flavor_prodRelease {
+            storeFile project.rootProject.file("keystore/flavor_prodRelease.jks")
+            storePassword project.getSecretKeys("flavor_prodRelease.storePassword")
+            keyAlias "flavor_prodRelease"
+            keyPassword project.getSecretKeys("flavor_prodRelease.keyPassword")
+        }
+    }
+
     defaultConfig {
         applicationId "com.mahfuznow.hello_flutter"
 
@@ -87,10 +138,27 @@ android {
     }
 
     buildTypes {
+        debug {
+            if (getCurrentFlavor().contains("prod")) {
+                signingConfig signingConfigs.flavor_prodDebug
+            } else if (getCurrentFlavor().contains("staging")) {
+                signingConfig signingConfigs.flavor_stagingDebug
+            } else if (getCurrentFlavor().contains("test")) {
+                signingConfig signingConfigs.flavor_testDebug
+            } else {
+                signingConfig signingConfigs.flavor_devDebug
+            }
+        }
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig signingConfigs.debug
+            if (getCurrentFlavor().contains("prod")) {
+                signingConfig signingConfigs.flavor_prodRelease
+            } else if (getCurrentFlavor().contains("staging")) {
+                signingConfig signingConfigs.flavor_stagingRelease
+            } else if (getCurrentFlavor().contains("test")) {
+                signingConfig signingConfigs.flavor_testRelease
+            } else {
+                signingConfig signingConfigs.flavor_devRelease
+            }
         }
     }
 
@@ -121,3 +189,15 @@ android {
 }
 
 dependencies {}
+
+// Function to get secret keys from local.properties
+def getSecretKeys(String keyName) {
+    Properties properties = new Properties()
+    File localPropertiesFile = project.rootProject.file("local.properties")
+    if (localPropertiesFile.canRead()) {
+        properties.load(new FileInputStream(localPropertiesFile))
+    } else {
+        throw new GradleException("Could not read local.properties!")
+    }
+    return properties.getProperty(keyName)
+}
