@@ -135,27 +135,26 @@ android {
     }
     
     productFlavors {
-        flavor_dev {
-            dimension "env"
-            applicationId "com.mahfuznow.hello_flutter_dev"
-            resValue "string", "app_name", "Hello Flutter Dev"
-        }
-        flavor_test {
-            dimension "env"
-            applicationId "com.mahfuznow.hello_flutter_test"
-            resValue "string", "app_name", "Hello Flutter Test"
-        }
-        flavor_staging {
-            dimension "env"
-            applicationId "com.mahfuznow.hello_flutter_staging"
-            resValue "string", "app_name", "Hello Flutter Staging"
-        }
-        flavor_prod {
-            dimension "env"
-            applicationId "com.mahfuznow.hello_flutter"
-            resValue "string", "app_name", "Hello Flutter"
-        }
+    flavor_dev {
+        dimension "env"
+        applicationIdSuffix ".dev"
+        resValue "string", "app_name", "Hello Flutter Dev"
     }
+    flavor_test {
+        dimension "env"
+        applicationIdSuffix ".test"
+        resValue "string", "app_name", "Hello Flutter Test"
+    }
+    flavor_staging {
+        dimension "env"
+        applicationIdSuffix ".staging"
+        resValue "string", "app_name", "Hello Flutter Staging"
+    }
+    flavor_prod {
+        dimension "env"
+        resValue "string", "app_name", "Hello Flutter"
+    }
+}
 }
 ```
 
