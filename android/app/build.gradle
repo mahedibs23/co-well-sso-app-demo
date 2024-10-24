@@ -54,17 +54,47 @@ android {
     compileSdkVersion flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
 
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+    defaultConfig {
+        applicationId "com.mahfuznow.hello_flutter"
+
+        println("==================ANDROID Gradle Info ======================")
+        println("Current flavor: " + getCurrentFlavor())
+        println("Min SDK version: " + flutter.minSdkVersion)
+        println("Target SDK version: " + flutter.targetSdkVersion)
+        println("App Version code: " + flutterVersionCode)
+        println("App Version name: " + flutterVersionName)
+        println("==================ANDROID Gradle Info ======================")
+
+        minSdkVersion flutter.minSdkVersion
+        targetSdkVersion flutter.targetSdkVersion
+        versionCode flutterVersionCode.toInteger()
+        versionName flutterVersionName
+
+        multiDexEnabled true
     }
 
-    kotlinOptions {
-        jvmTarget = '1.8'
-    }
+    flavorDimensions += "env"
 
-    sourceSets {
-        main.java.srcDirs += 'src/app/kotlin'
+    productFlavors {
+        flavor_dev {
+            dimension "env"
+            applicationIdSuffix ".dev"
+            resValue "string", "app_name", "Hello Flutter Dev"
+        }
+        flavor_test {
+            dimension "env"
+            applicationIdSuffix ".test"
+            resValue "string", "app_name", "Hello Flutter Test"
+        }
+        flavor_staging {
+            dimension "env"
+            applicationIdSuffix ".staging"
+            resValue "string", "app_name", "Hello Flutter Staging"
+        }
+        flavor_prod {
+            dimension "env"
+            resValue "string", "app_name", "Hello Flutter"
+        }
     }
 
     signingConfigs {
@@ -118,25 +148,6 @@ android {
         }
     }
 
-    defaultConfig {
-        applicationId "com.mahfuznow.hello_flutter"
-
-        println("==================ANDROID Gradle Info ======================")
-        println("Current flavor: " + getCurrentFlavor())
-        println("Min SDK version: " + flutter.minSdkVersion)
-        println("Target SDK version: " + flutter.targetSdkVersion)
-        println("App Version code: " + flutterVersionCode)
-        println("App Version name: " + flutterVersionName)
-        println("==================ANDROID Gradle Info ======================")
-
-        minSdkVersion flutter.minSdkVersion
-        targetSdkVersion flutter.targetSdkVersion
-        versionCode flutterVersionCode.toInteger()
-        versionName flutterVersionName
-
-        multiDexEnabled true
-    }
-
     buildTypes {
         debug {
             applicationIdSuffix ".debug"
@@ -163,28 +174,17 @@ android {
         }
     }
 
-    flavorDimensions += "env"
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 
-    productFlavors {
-        flavor_dev {
-            dimension "env"
-            applicationIdSuffix ".dev"
-            resValue "string", "app_name", "Hello Flutter Dev"
-        }
-        flavor_test {
-            dimension "env"
-            applicationIdSuffix ".test"
-            resValue "string", "app_name", "Hello Flutter Test"
-        }
-        flavor_staging {
-            dimension "env"
-            applicationIdSuffix ".staging"
-            resValue "string", "app_name", "Hello Flutter Staging"
-        }
-        flavor_prod {
-            dimension "env"
-            resValue "string", "app_name", "Hello Flutter"
-        }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/app/kotlin'
     }
 }
 
