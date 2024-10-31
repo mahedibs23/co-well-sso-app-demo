@@ -1,20 +1,20 @@
-import 'package:data/local/shared_preference/entity/shared_preference_entity.dart';
+import 'package:data/local/shared_preference/entity/shared_pref_entity.dart';
 import 'package:data/model/mappable.dart';
 import 'package:domain/model/app_theme_mode.dart';
 
-class AppThemeModeSharedPreferenceEntity extends SharedPreferenceEntity {
+class AppThemeModeSharedPrefEntity extends SharedPrefEntity {
   AppThemeMode themeMode;
 
-  AppThemeModeSharedPreferenceEntity({
+  AppThemeModeSharedPrefEntity({
     required this.themeMode,
   });
 
-  factory AppThemeModeSharedPreferenceEntity.fromJson(
+  factory AppThemeModeSharedPrefEntity.fromJson(
       Map<String, dynamic> json) {
     if (!json.containsKey('themeMode')) {
       throw ArgumentError('Missing required keys in JSON');
     }
-    return AppThemeModeSharedPreferenceEntity(
+    return AppThemeModeSharedPrefEntity(
       themeMode: AppThemeMode.fromString(json['themeMode']),
     );
   }
@@ -28,14 +28,14 @@ class AppThemeModeSharedPreferenceEntity extends SharedPreferenceEntity {
 
   @override
   Mappable fromJson(Map<String, dynamic> json) {
-    return AppThemeModeSharedPreferenceEntity.fromJson(json);
+    return AppThemeModeSharedPrefEntity.fromJson(json);
   }
 
   @override
   String sharedPrefKey = 'app_theme_mode';
 
-  static AppThemeModeSharedPreferenceEntity example =
-      AppThemeModeSharedPreferenceEntity(
+  static AppThemeModeSharedPrefEntity example =
+      AppThemeModeSharedPrefEntity(
     themeMode: AppThemeMode.system,
   );
 }

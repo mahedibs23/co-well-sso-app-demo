@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:data/local/shared_preference/shared_preferences_manager.dart';
+import 'package:data/local/shared_preference/shared_pref_manager.dart';
 import 'package:domain/model/app_language.dart';
 import 'package:domain/model/app_theme_mode.dart';
 import 'package:domain/repository/app_repository.dart';
@@ -9,11 +9,14 @@ class AppRepositoryImpl implements AppRepository {
   final String deviceSettingsLocaleName = Platform.localeName;
   final String deviceSettingsThemeMode = 'system';
 
+  final SharedPrefManager sharedPrefManager;
+
+  AppRepositoryImpl({required this.sharedPrefManager});
+
   @override
   Future<AppLanguage> getApplicationLocale() async {
-    String? savedAppLanguageLocaleString = await SharedPreferencesManager
-        .singleton
-        .getValue<String?>('language', null, (obj) => obj as String?);
+    String? savedAppLanguageLocaleString =
+        await sharedPrefManager.getValue<String?>('language', null);
     if (savedAppLanguageLocaleString == null) {
       return AppLanguage.fromString(deviceSettingsLocaleName);
     }
@@ -22,8 +25,8 @@ class AppRepositoryImpl implements AppRepository {
 
   @override
   Future<AppThemeMode> getApplicationThemeMode() async {
-    String? savedAppThemeModeString = await SharedPreferencesManager.singleton
-        .getValue<String?>('theme', null, (obj) => obj as String?);
+    String? savedAppThemeModeString =
+        await sharedPrefManager.getValue<String?>('theme', null);
     if (savedAppThemeModeString == null) {
       return AppThemeMode.fromString(deviceSettingsThemeMode);
     }
@@ -32,19 +35,17 @@ class AppRepositoryImpl implements AppRepository {
 
   @override
   Future<void> saveApplicationLocale(AppLanguage appLanguage) {
-    return SharedPreferencesManager.singleton.saveValue(
+    return sharedPrefManager.saveValue(
       'language',
       appLanguage.toString(),
-          (obj) => {},
     );
   }
 
   @override
   Future<void> saveApplicationThemeMode(AppThemeMode themeMode) {
-    return SharedPreferencesManager.singleton.saveValue(
+    return sharedPrefManager.saveValue(
       'theme',
       themeMode.toString(),
-          (obj) => {},
     );
   }
 }

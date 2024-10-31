@@ -1,4 +1,4 @@
-import 'package:data/local/shared_preference/entity/user_session_shared_preference_entity.dart';
+import 'package:data/local/shared_preference/entity/user_session_shared_pref_entity.dart';
 import 'package:domain/model/user_session.dart';
 import 'package:domain/repository/auth_repository.dart';
 
@@ -10,7 +10,7 @@ class AuthRepositoryImpl extends AuthRepository {
   }) {
     //Dummy network call
     return Future.delayed(const Duration(seconds: 2), () {
-      final user = UserSessionSharedPreferenceEntity(
+      final user = UserSessionSharedPrefEntity(
         userId: '324234',
         accessToken:
             'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c',
@@ -34,7 +34,7 @@ class AuthRepositoryImpl extends AuthRepository {
   @override
   Future<bool> logout() {
     return Future.delayed(const Duration(seconds: 2), () {
-      UserSessionSharedPreferenceEntity.example.deleteFromSharedPref();
+      UserSessionSharedPrefEntity.example.deleteFromSharedPref();
       return true;
     });
   }
@@ -46,7 +46,7 @@ class AuthRepositoryImpl extends AuthRepository {
   }) {
     //Dummy network call
     return Future.delayed(const Duration(seconds: 2), () {
-      final user = UserSessionSharedPreferenceEntity(
+      final user = UserSessionSharedPrefEntity(
         userId: '324234',
         accessToken:
             'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c',
@@ -57,5 +57,14 @@ class AuthRepositoryImpl extends AuthRepository {
       );
       return user.toUserSession();
     });
+  }
+
+  @override
+  Future<UserSession> getCurrentUser() async {
+    await Future.delayed(const Duration(seconds: 2));
+    final UserSessionSharedPrefEntity userSessionSharedPref =
+        UserSessionSharedPrefEntity.example.getFromSharedPref()
+            as UserSessionSharedPrefEntity;
+    return userSessionSharedPref.toUserSession();
   }
 }

@@ -1,20 +1,19 @@
-import 'package:data/local/shared_preference/entity/shared_preference_entity.dart';
+import 'package:data/local/shared_preference/entity/shared_pref_entity.dart';
 import 'package:data/model/mappable.dart';
 import 'package:domain/model/app_language.dart';
 
-class AppLanguageSharedPreferenceEntity extends SharedPreferenceEntity {
+class AppLanguageSharedPrefEntity extends SharedPrefEntity {
   AppLanguage appLanguage;
 
-  AppLanguageSharedPreferenceEntity({
+  AppLanguageSharedPrefEntity({
     required this.appLanguage,
   });
 
-  factory AppLanguageSharedPreferenceEntity.fromJson(
-      Map<String, dynamic> json) {
+  factory AppLanguageSharedPrefEntity.fromJson(Map<String, dynamic> json) {
     if (!json.containsKey('appLanguage')) {
       throw ArgumentError('Missing required keys in JSON');
     }
-    return AppLanguageSharedPreferenceEntity(
+    return AppLanguageSharedPrefEntity(
       appLanguage: AppLanguage.fromString(json['appLanguage']),
     );
   }
@@ -28,14 +27,13 @@ class AppLanguageSharedPreferenceEntity extends SharedPreferenceEntity {
 
   @override
   Mappable fromJson(Map<String, dynamic> json) {
-    return AppLanguageSharedPreferenceEntity.fromJson(json);
+    return AppLanguageSharedPrefEntity.fromJson(json);
   }
 
   @override
   String sharedPrefKey = 'app_language';
 
-  static AppLanguageSharedPreferenceEntity example =
-      AppLanguageSharedPreferenceEntity(
+  static AppLanguageSharedPrefEntity example = AppLanguageSharedPrefEntity(
     appLanguage: AppLanguage.en,
   );
 }

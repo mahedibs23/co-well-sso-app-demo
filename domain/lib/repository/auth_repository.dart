@@ -11,6 +11,8 @@ abstract class AuthRepository {
     required String password,
   });
 
+  Future<UserSession> getCurrentUser();
+
   Future<bool> logout();
 
   Future<bool> isLoggedIn();

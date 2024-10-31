@@ -1,15 +1,15 @@
-import 'package:data/local/shared_preference/entity/shared_preference_entity.dart';
+import 'package:data/local/shared_preference/entity/shared_pref_entity.dart';
 import 'package:data/model/mappable.dart';
 import 'package:domain/model/user_session.dart';
 
-class UserSessionSharedPreferenceEntity extends SharedPreferenceEntity {
+class UserSessionSharedPrefEntity extends SharedPrefEntity {
   String userId;
   String accessToken;
   String refreshToken;
   String? email;
   String? name;
 
-  UserSessionSharedPreferenceEntity({
+  UserSessionSharedPrefEntity({
     required this.userId,
     required this.accessToken,
     required this.refreshToken,
@@ -24,15 +24,14 @@ class UserSessionSharedPreferenceEntity extends SharedPreferenceEntity {
     }
   }
 
-  factory UserSessionSharedPreferenceEntity.fromJson(
-      Map<String, dynamic> json) {
+  factory UserSessionSharedPrefEntity.fromJson(Map<String, dynamic> json) {
     if (!json.containsKey('userId') ||
         !json.containsKey('accessToken') ||
         !json.containsKey('refreshToken')) {
       throw ArgumentError('Missing required keys in JSON');
     }
 
-    return UserSessionSharedPreferenceEntity(
+    return UserSessionSharedPrefEntity(
       userId: json['userId'],
       accessToken: json['accessToken'],
       refreshToken: json['refreshToken'],
@@ -54,7 +53,7 @@ class UserSessionSharedPreferenceEntity extends SharedPreferenceEntity {
 
   @override
   Mappable fromJson(Map<String, dynamic> json) {
-    return UserSessionSharedPreferenceEntity.fromJson(json);
+    return UserSessionSharedPrefEntity.fromJson(json);
   }
 
   @override
@@ -65,8 +64,7 @@ class UserSessionSharedPreferenceEntity extends SharedPreferenceEntity {
   @override
   String sharedPrefKey = 'app_user_session';
 
-  static UserSessionSharedPreferenceEntity example =
-      UserSessionSharedPreferenceEntity(
+  static UserSessionSharedPrefEntity example = UserSessionSharedPrefEntity(
     userId: '1234',
     accessToken: 'example_access_token',
     refreshToken: 'example_refresh_token',
@@ -82,5 +80,13 @@ class UserSessionSharedPreferenceEntity extends SharedPreferenceEntity {
       email: email,
       name: name,
     );
+  }
+
+  bool isValid() {
+    return userId != example.userId &&
+        accessToken != example.accessToken &&
+        refreshToken != example.refreshToken &&
+        name != example.name &&
+        email != example.email;
   }
 }

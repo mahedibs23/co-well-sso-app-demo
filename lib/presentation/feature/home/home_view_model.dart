@@ -1,5 +1,5 @@
+import 'package:domain/repository/auth_repository.dart';
 import 'package:flutter/foundation.dart';
-import 'package:data/local/shared_preference/entity/user_session_shared_preference_entity.dart';
 import 'package:hello_flutter/presentation/base/base_viewmodel.dart';
 import 'package:hello_flutter/presentation/feature/home/bottom_navigation_item_type.dart';
 import 'package:hello_flutter/presentation/feature/home/route/home_argument.dart';
@@ -18,6 +18,10 @@ class HomeViewModel extends BaseViewModel<HomeArgument> {
 
   ValueListenable<int> get currentPageIndex => _currentPageIndex;
 
+  final AuthRepository authRepository;
+
+  HomeViewModel({required this.authRepository});
+
   @override
   onViewReady({HomeArgument? argument}) {
     AppLogger.d("HomeViewModel onViewReady");
@@ -26,10 +30,9 @@ class HomeViewModel extends BaseViewModel<HomeArgument> {
     _printUserSession();
   }
 
-  void _printUserSession() {
-    UserSessionSharedPreferenceEntity.example.getFromSharedPref().then((value) {
-      AppLogger.d(value);
-    });
+  void _printUserSession() async {
+    final userSession = await authRepository.getCurrentUser();
+    AppLogger.d("User session: $userSession");
   }
 
   void onPageChanged(int index) {

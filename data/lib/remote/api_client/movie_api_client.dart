@@ -1,4 +1,4 @@
-import 'package:data/local/shared_preference/entity/user_session_shared_preference_entity.dart';
+import 'package:data/local/shared_preference/entity/user_session_shared_pref_entity.dart';
 import 'package:data/remote/api_client/api_client.dart';
 
 class MovieApiClient extends ApiClient {
@@ -7,8 +7,8 @@ class MovieApiClient extends ApiClient {
 
   @override
   Future<Map<String, String>> getCustomHeader() async {
-    final accessToken = (await UserSessionSharedPreferenceEntity.example
-            .getFromSharedPref() as UserSessionSharedPreferenceEntity)
+    final accessToken = (await UserSessionSharedPrefEntity.example
+            .getFromSharedPref() as UserSessionSharedPrefEntity)
         .accessToken;
     return {
       'Authorization': 'Bearer $accessToken',

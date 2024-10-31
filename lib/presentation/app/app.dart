@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:data/di/data_module.dart';
+import 'package:data/local/shared_preference/shared_pref_manager.dart';
 import 'package:data/repository/app_repository_impl.dart';
 import 'package:domain/di/di_module.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +31,7 @@ class _MyAppState extends BaseUiState<MyApp> {
   void initState() {
     super.initState();
     viewModel = AppViewModel(
-      appRepository: AppRepositoryImpl(),
+      appRepository: AppRepositoryImpl(sharedPrefManager: SharedPrefManager()),
     );
     DiModule().registerSingleton(viewModel);
     _dataModule.injectDependencies();
