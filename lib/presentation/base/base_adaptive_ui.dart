@@ -1,5 +1,6 @@
-import 'package:data/remote/network_exceptions.dart';
-import 'package:domain/model/base_exception.dart';
+import 'package:domain/exceptions/base_exception.dart';
+import 'package:domain/exceptions/location_exceptions.dart';
+import 'package:domain/exceptions/network_exceptions.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hello_flutter/presentation/base/adaptive_util/adaptive_screen_builder.dart';
@@ -224,6 +225,9 @@ abstract class BaseAdaptiveUiState<
     if (error is NetworkException) {
       msg = context.localizations.error__network_error_with_error_and_message(
           error.code!, error.message);
+    }
+    if (error is LocationException) {
+      msg = context.localizations.location_error__something_went_wrong;
     }
     //TODO: Add more error handling based on different Exceptions
     AppLogger.e(msg);

@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:data/remote/network_exceptions.dart';
+import 'package:domain/exceptions/network_exceptions.dart';
 import 'package:domain/util/logger.dart';
 import 'package:http/http.dart' as http;
 

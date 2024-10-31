@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:domain/model/base_exception.dart';
+import 'package:domain/exceptions/base_exception.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hello_flutter/presentation/base/base_argument.dart';
 import 'package:hello_flutter/presentation/base/base_route.dart';

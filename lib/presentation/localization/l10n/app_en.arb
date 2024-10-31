@@ -235,5 +235,25 @@
   "navigation_item__settings": "Settings",
   "@navigation_item__settings": {
     "type": "text"
+  },
+  "location_error__something_went_wrong": "Something went wrong with location",
+  "@location_error__something_went_wrong": {
+   "type": "text"
+  },
+  "location_error__msg__please_turn_on_location": "Please turn on your location to continue",
+  "@location_error__msg__please_turn_on_location": {
+    "type": "text"
+  },
+  "location_error_msg__please_allow_location_permission_from_settings": "Please allow location permission from the settings",
+  "@location_error_msg__please_allow_location_permission_from_settings": {
+    "type": "text"
+  },
+  "location_error__msg__please_allow_location_permission": "Please allow location permission",
+  "@location_error__msg__please_allow_location_permission": {
+    "type": "text"
+  },
+  "location_error_msg__current_country_not_found": "Current country not found. Please try again",
+  "@location_error_msg__current_country_not_found": {
+    "type": "text"
   }
 }
