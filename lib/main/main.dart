@@ -1,3 +1,5 @@
+import 'package:domain/util/logger.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hello_flutter/main/flavors.dart';
@@ -15,9 +17,18 @@ void appMain({required AppFlavor appFlavor}) async {
     throw Exception('Missing required environment variables: $requiredEnvVars');
   }
 
-  debugPrint("*********************************************");
-  debugPrint("API_BASE_URL:${dotenv.env['API_BASE_URL']}");
-  debugPrint("*********************************************");
+  //Enable logging only in debug mode
+  if (kDebugMode) {
+    Logger.enableLogging();
+  } else {
+    Logger.disableLogging();
+  }
 
-  runApp(MyApp());
+  Logger.info("*********************************************");
+  Logger.info("App is running in ${F.appFlavor} mode");
+  Logger.debug("API_BASE_URL:${dotenv.env['API_BASE_URL']}");
+  Logger.debug("API_TOKEN:${dotenv.env['API_TOKEN']}");
+  Logger.info("*********************************************");
+
+  runApp(const MyApp());
 }

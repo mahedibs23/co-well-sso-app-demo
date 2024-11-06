@@ -1,6 +1,7 @@
 import 'package:domain/exceptions/base_exception.dart';
 import 'package:domain/exceptions/location_exceptions.dart';
 import 'package:domain/exceptions/network_exceptions.dart';
+import 'package:domain/util/logger.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hello_flutter/presentation/base/adaptive_util/adaptive_screen_builder.dart';
@@ -13,7 +14,6 @@ import 'package:hello_flutter/presentation/base/base_viewmodel.dart';
 import 'package:hello_flutter/presentation/common/extension/context_ext.dart';
 import 'package:hello_flutter/presentation/localization/ui_text.dart';
 import 'package:hello_flutter/presentation/navigation/app_router.dart';
-import 'package:hello_flutter/util/app_logger.dart';
 
 abstract class BaseAdaptiveUi<A extends BaseArgument, R extends BaseRoute<A>>
     extends StatefulWidget {
@@ -230,8 +230,12 @@ abstract class BaseAdaptiveUiState<
       msg = context.localizations.location_error__something_went_wrong;
     }
     //TODO: Add more error handling based on different Exceptions
-    AppLogger.e(msg);
-    AppLogger.e(error);
+    Logger.error(msg);
+    Logger.error(
+      error.toString(),
+      error: error,
+      stackTrace: error.stackTrace,
+    );
     if (shouldShowToast) {
       _showToast(
         uiText: FixedUiText(

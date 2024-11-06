@@ -1,9 +1,9 @@
 import 'package:domain/repository/auth_repository.dart';
+import 'package:domain/util/logger.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hello_flutter/presentation/base/base_viewmodel.dart';
 import 'package:hello_flutter/presentation/feature/home/bottom_navigation_item_type.dart';
 import 'package:hello_flutter/presentation/feature/home/route/home_argument.dart';
-import 'package:hello_flutter/util/app_logger.dart';
 
 class HomeViewModel extends BaseViewModel<HomeArgument> {
   final ValueNotifier<String?> _userId = ValueNotifier(null);
@@ -24,7 +24,7 @@ class HomeViewModel extends BaseViewModel<HomeArgument> {
 
   @override
   onViewReady({HomeArgument? argument}) {
-    AppLogger.d("HomeViewModel onViewReady");
+    Logger.debug("HomeViewModel onViewReady");
     _userId.value = argument?.userId;
 
     _printUserSession();
@@ -32,7 +32,7 @@ class HomeViewModel extends BaseViewModel<HomeArgument> {
 
   void _printUserSession() async {
     final userSession = await authRepository.getCurrentUser();
-    AppLogger.d("User session: $userSession");
+    Logger.debug("User session: $userSession");
   }
 
   void onPageChanged(int index) {

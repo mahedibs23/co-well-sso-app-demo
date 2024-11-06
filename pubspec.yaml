@@ -24,7 +24,6 @@ dependencies:
   flutter_dotenv: 5.1.0
   flutter_screenutil: 5.9.0
   google_fonts: 6.1.0 # For custom fonts
-  logger: 2.0.2 # For pretty print network logs
 
 dev_dependencies:
   flutter_test:

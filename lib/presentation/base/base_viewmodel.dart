@@ -1,13 +1,13 @@
 import 'dart:async';
 
 import 'package:domain/exceptions/base_exception.dart';
+import 'package:domain/util/logger.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hello_flutter/presentation/base/base_argument.dart';
 import 'package:hello_flutter/presentation/base/base_route.dart';
 import 'package:hello_flutter/presentation/base/base_state.dart';
 import 'package:hello_flutter/presentation/localization/text_id.dart';
 import 'package:hello_flutter/presentation/localization/ui_text.dart';
-import 'package:hello_flutter/util/app_logger.dart';
 import 'package:http/http.dart';
 
 abstract class BaseViewModel<A extends BaseArgument> {
@@ -97,10 +97,10 @@ abstract class BaseViewModel<A extends BaseArgument> {
         baseError: e,
         shouldShowToast: shouldShowToast,
       );
-      AppLogger.e("BaseViewModel: BaseException: Load Data Error: $e");
+      Logger.error("BaseViewModel: BaseException: Load Data Error: $e");
       return Future.error(e);
     } on Error catch (e) {
-      AppLogger.e("BaseViewModel: Error: Load Data Error: $e");
+      Logger.error("BaseViewModel: Error: Load Data Error: $e");
       return Future.error(e);
     } on ClientException catch (e) {
       showToast(
@@ -109,10 +109,10 @@ abstract class BaseViewModel<A extends BaseArgument> {
           fallbackText: "Please check your internet connection",
         ),
       );
-      AppLogger.e("BaseViewModel: ClientException Load Data Error: $e");
+      Logger.error("BaseViewModel: ClientException Load Data Error: $e");
       return Future.error(e);
     } on Exception catch (e) {
-      AppLogger.e("BaseViewModel: Load Data Error: $e");
+      Logger.error("BaseViewModel: Load Data Error: $e");
       return Future.error(e);
     } finally {
       dismissLoadingDialog();

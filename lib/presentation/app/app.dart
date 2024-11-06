@@ -4,6 +4,7 @@ import 'package:data/di/data_module.dart';
 import 'package:data/local/shared_preference/shared_pref_manager.dart';
 import 'package:data/repository/app_repository_impl.dart';
 import 'package:domain/di/di_module.dart';
+import 'package:domain/util/logger.dart';
 import 'package:flutter/material.dart';
 import 'package:hello_flutter/presentation/app/app_viewmodel.dart';
 import 'package:hello_flutter/presentation/base/base_ui_state.dart';
@@ -14,7 +15,6 @@ import 'package:hello_flutter/presentation/navigation/app_router.dart';
 import 'package:hello_flutter/presentation/theme/dark_app_theme.dart';
 import 'package:hello_flutter/presentation/theme/extension/app_theme_mode_ext.dart';
 import 'package:hello_flutter/presentation/theme/light_app_theme.dart';
-import 'package:hello_flutter/util/app_logger.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -47,7 +47,7 @@ class _MyAppState extends BaseUiState<MyApp> {
   @override
   Widget build(BuildContext context) {
     final String currentLocale = Platform.localeName;
-    AppLogger.d("current locale: $currentLocale");
+    Logger.debug("current locale: $currentLocale");
 
     return valueListenableBuilder(
       listenable: viewModel.selectedThemeMode,
