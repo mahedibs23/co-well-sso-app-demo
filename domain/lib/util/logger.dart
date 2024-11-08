@@ -18,35 +18,48 @@ class Logger {
     _logLevel = logType;
   }
 
-  static void debug(String message) {
-    _log(LogType.debug, message);
+  static void debug(String message, {bool prettyPrint = false}) {
+    _log(LogType.debug, message, prettyPrint);
   }
 
-  static void info(String message) {
-    _log(LogType.info, message);
+  static void info(String message, {bool prettyPrint = false}) {
+    _log(LogType.info, message, prettyPrint);
   }
 
-  static void warning(String message) {
-    _log(LogType.warning, message);
+  static void warning(String message, {bool prettyPrint = false}) {
+    _log(LogType.warning, message, prettyPrint);
   }
 
-  static void error(message, {Object? error, StackTrace? stackTrace}) {
-    _log(LogType.error, message);
+  static void error(
+    message, {
+    bool prettyPrint = false,
+    Object? error,
+    StackTrace? stackTrace,
+  }) {
+    _log(LogType.error, message, prettyPrint);
   }
 
-  static void _log(LogType logType, String message) {
+  static void _log(LogType logType, String message, bool prettyPrint) {
     if (logType.index >= _logLevel.index) {
       try {
         final frame = StackTrace.current.toString().split("\n")[2];
         String formattedMessage =
             '[${DateTime.now()}] [${_logLevelToString(logType)}] ${_getCaller(frame)}: $message';
         if (_isLoggingEnabled) {
-          _prettyLog(logType, formattedMessage);
+          if (prettyPrint) {
+            _prettyLog(logType, formattedMessage);
+          } else {
+            print(formattedMessage);
+          }
         }
         // Example: sendLogToServer(formattedMessage);
       } catch (e) {
         if (_isLoggingEnabled) {
-          _prettyLog(logType, 'Error $e while logging: $message');
+          if (prettyPrint) {
+            _prettyLog(logType, 'Error $e while logging: $message');
+          } else {
+            print('Error $e while logging: $message');
+          }
         }
       }
     }
