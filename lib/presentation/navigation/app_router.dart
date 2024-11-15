@@ -30,8 +30,8 @@ class AppRouter {
     return appRoute.toMaterialPageRoute();
   }
 
-  static void navigateTo(BuildContext context, BaseRoute appRoute) {
-    Navigator.pushNamed(
+  static Future<void> navigateTo(BuildContext context, BaseRoute appRoute) {
+    return Navigator.pushNamed(
       context,
       appRoute.routePath.toPathString,
       arguments: appRoute.arguments,
@@ -42,9 +42,9 @@ class AppRouter {
     Navigator.pop(context);
   }
 
-  static void navigateToAndClearStack(
+  static Future<void> navigateToAndClearStack(
       BuildContext context, BaseRoute appRoute) {
-    Navigator.pushNamedAndRemoveUntil(
+    return Navigator.pushNamedAndRemoveUntil(
       context,
       appRoute.routePath.toPathString,
       (route) => false,
@@ -52,8 +52,9 @@ class AppRouter {
     );
   }
 
-  static void pushReplacement(BuildContext context, BaseRoute appRoute) {
-    Navigator.pushReplacementNamed(
+  static Future<void> pushReplacement(
+      BuildContext context, BaseRoute appRoute) {
+    return Navigator.pushReplacementNamed(
       context,
       appRoute.routePath.toPathString,
       arguments: appRoute.arguments,
