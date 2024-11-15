@@ -77,7 +77,7 @@ abstract class ApiClient {
 
   void _logRequest(String method, Uri url,
       {Map<String, dynamic>? data, Map<String, String>? headers}) {
-    Logger.info('Sending $method request to $url');
+    Logger.info('Sending $method request to $url', prettyPrint: true);
     if (headers != null && headers.isNotEmpty) {
       var formattedHeaders = const JsonEncoder.withIndent(' ').convert(headers);
       Logger.info('Request Headers: $formattedHeaders');
@@ -92,7 +92,9 @@ abstract class ApiClient {
     // The response could be minified, so we need to re-encode it to get a formatted JSON string
     var formattedJsonStr = const JsonEncoder.withIndent('  ').convert(jsonObj);
     Logger.info(
-        'Received response - Status code: ${response.statusCode}, Body: $formattedJsonStr');
+      'Received response - Status code: ${response.statusCode}, Body: $formattedJsonStr',
+      prettyPrint: true,
+    );
     if (response.headers.isNotEmpty) {
       var formattedHeaders =
           const JsonEncoder.withIndent(' ').convert(response.headers);
