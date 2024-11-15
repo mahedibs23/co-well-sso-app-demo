@@ -3,89 +3,90 @@ import 'package:logger/logger.dart' as package_logger;
 enum LogType { debug, info, warning, error }
 
 class Logger {
-  static LogType _logLevel = LogType.debug; // Up to which level to log
+  static LogType _logLevel = LogType.debug; // Define log level threshold
   static bool _isLoggingEnabled = false;
 
-  static void enableLogging() {
-    _isLoggingEnabled = true;
-  }
+  /// Enables logging
+  static void enableLogging() => _isLoggingEnabled = true;
 
-  static void disableLogging() {
-    _isLoggingEnabled = false;
-  }
+  /// Disables logging
+  static void disableLogging() => _isLoggingEnabled = false;
 
-  static void setLogLevel(LogType logType) {
-    _logLevel = logType;
-  }
+  /// Sets the minimum log level
+  static void setLogLevel(LogType logType) => _logLevel = logType;
 
+  /// Logs a debug message
   static void debug(String message, {bool prettyPrint = false}) {
     _log(LogType.debug, message, prettyPrint);
   }
 
+  /// Logs an info message
   static void info(String message, {bool prettyPrint = false}) {
     _log(LogType.info, message, prettyPrint);
   }
 
+  /// Logs a warning message
   static void warning(String message, {bool prettyPrint = false}) {
     _log(LogType.warning, message, prettyPrint);
   }
 
+  /// Logs an error message with optional error details and stack trace
   static void error(
-    message, {
+    String message, {
     bool prettyPrint = false,
     Object? error,
     StackTrace? stackTrace,
   }) {
-    _log(LogType.error, message, prettyPrint);
+    _log(LogType.error, message, prettyPrint,
+        error: error, stackTrace: stackTrace);
   }
 
-  static void _log(LogType logType, String message, bool prettyPrint) {
-    if (logType.index >= _logLevel.index) {
+  /// Internal logging function with enhanced error handling
+  static void _log(
+    LogType logType,
+    String message,
+    bool prettyPrint, {
+    Object? error,
+    StackTrace? stackTrace,
+  }) {
+    if (_isLoggingEnabled && logType.index >= _logLevel.index) {
       try {
-        final frame = StackTrace.current.toString().split("\n")[2];
-        String formattedMessage =
-            '[${DateTime.now()}] [${_logLevelToString(logType)}] ${_getCaller(frame)}: $message';
-        if (_isLoggingEnabled) {
-          if (prettyPrint) {
-            _prettyLog(logType, formattedMessage);
-          } else {
-            print(formattedMessage);
-          }
+        final frame = StackTrace.current.toString().split('\n')[2];
+        final caller = _getCaller(frame);
+        final logMessage = '[${_logLevelToString(logType)}] $caller: $message';
+
+        if (prettyPrint) {
+          _prettyLog(logType, logMessage, error: error, stackTrace: stackTrace);
+        } else {
+          print(logMessage);
         }
-        // Example: sendLogToServer(formattedMessage);
+
+        // Optional: Add code to send logs to a server or a file.
       } catch (e) {
-        if (_isLoggingEnabled) {
-          if (prettyPrint) {
-            _prettyLog(logType, 'Error $e while logging: $message');
-          } else {
-            print('Error $e while logging: $message');
-          }
-        }
+        print('Error during logging: $e');
       }
     }
   }
 
-  static String _logLevelToString(LogType logType) {
-    switch (logType) {
-      case LogType.debug:
-        return 'DEBUG';
-      case LogType.info:
-        return 'INFO';
-      case LogType.warning:
-        return 'WARNING';
-      case LogType.error:
-        return 'ERROR';
-      default:
-        return '';
-    }
-  }
+  /// Converts LogType enum to string for readability
+  static String _logLevelToString(LogType logType) =>
+      logType.toString().split('.').last.toUpperCase();
 
+  /// Extracts the caller from the stack trace for context
   static String _getCaller(String frame) {
-    final index = frame.indexOf(" (");
-    return frame.substring(index + 2, frame.length - 1);
+    final index = frame.indexOf(' (');
+    return (index != -1)
+        ? frame.substring(index + 2, frame.length - 1)
+        : 'Unknown';
   }
 
-  static _prettyLog(LogType logType, String message) {
+  /// Logs with PrettyPrinter when `prettyPrint` is enabled
+  static void _prettyLog(
+    LogType logType,
+    String message, {
+    Object? error,
+    StackTrace? stackTrace,
+  }) {
     switch (logType) {
       case LogType.debug:
         _prettyLogger.d(message);
@@ -97,26 +98,20 @@ class Logger {
         _prettyLogger.w(message);
         break;
       case LogType.error:
-        _prettyLogger.e(message);
+        _prettyLogger.e(error: error, stackTrace);
         break;
     }
   }
 
-  static final _prettyLogger = package_logger.Logger(
-    filter: null, // Use the default LogFilter (-> only log in debug mode)
+  /// Configure PrettyPrinter with customization options
+  static final package_logger.Logger _prettyLogger = package_logger.Logger(
     printer: package_logger.PrettyPrinter(
       methodCount: 0,
-      // Number of method calls to be displayed
       errorMethodCount: 8,
-      // Number of method calls if stacktrace is provided
       lineLength: 120,
-      // Width of the output
       colors: true,
-      // Colorful log messages
       printEmojis: true,
-      // Print an emoji for each log message
-      printTime: false, // Should each log print contain a timestamp
-    ), // Use the PrettyPrinter to format and print log
-    output: null, // Use the default LogOutput (-> send everything to console)
+      printTime: true,
+    ),
   );
 }
