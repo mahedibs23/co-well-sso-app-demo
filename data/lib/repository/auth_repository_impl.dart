@@ -63,7 +63,7 @@ class AuthRepositoryImpl extends AuthRepository {
   Future<UserSession> getCurrentUser() async {
     await Future.delayed(const Duration(seconds: 2));
     final UserSessionSharedPrefEntity userSessionSharedPref =
-        UserSessionSharedPrefEntity.example.getFromSharedPref()
+        (await UserSessionSharedPrefEntity.example.getFromSharedPref())
             as UserSessionSharedPrefEntity;
     return userSessionSharedPref.toUserSession();
   }
