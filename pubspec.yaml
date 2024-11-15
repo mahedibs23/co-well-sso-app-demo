@@ -21,7 +21,6 @@ dependencies:
   go_router: 13.0.0
   flutter_svg: 2.0.0
   fluttertoast: 8.1.2
-  flutter_dotenv: 5.1.0
   flutter_screenutil: 5.9.0
   google_fonts: 6.1.0 # For custom fonts
 
