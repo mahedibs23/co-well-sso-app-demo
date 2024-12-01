@@ -6,6 +6,8 @@ import 'package:hello_flutter/presentation/common/widget/primary_button.dart';
 import 'package:hello_flutter/presentation/feature/auth/login/login_view_model.dart';
 import 'package:hello_flutter/presentation/feature/auth/login/widgets/login_email_text_field.dart';
 import 'package:hello_flutter/presentation/feature/auth/login/widgets/login_password_text_field.dart';
+import 'package:hello_flutter/presentation/localization/extension/email_validation_error_ext.dart';
+import 'package:hello_flutter/presentation/localization/extension/password_validation_error_ext.dart';
 import 'package:hello_flutter/presentation/values/dimens.dart';
 
 class LoginUiMobilePortrait extends StatefulWidget {
@@ -18,6 +20,27 @@ class LoginUiMobilePortrait extends StatefulWidget {
 }
 
 class LoginUiMobilePortraitState extends BaseUiState<LoginUiMobilePortrait> {
+  late TextEditingController emailController;
+  late TextEditingController passwordController;
+
+  @override
+  void initState() {
+    super.initState();
+    emailController = TextEditingController(
+      text: widget.viewModel.email.value,
+    );
+    passwordController = TextEditingController(
+      text: widget.viewModel.password.value,
+    );
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,21 +104,27 @@ class LoginUiMobilePortraitState extends BaseUiState<LoginUiMobilePortrait> {
 
   Widget emailField(BuildContext context) {
     return valueListenableBuilder(
-      listenable: widget.viewModel.emailTextEditingController,
+      listenable: widget.viewModel.email,
       builder: (context, value) => LoginEmailTextField(
-        emailTextEditingController: widget.viewModel.emailTextEditingController,
-        errorText: widget.viewModel.getEmailError(context),
+        textEditingController: emailController,
+        onChanged: widget.viewModel.onEmailChanged,
+        errorText: widget.viewModel.emailValidationError?.getLocalizedMessage(
+          context.localizations,
+        ),
       ),
     );
   }
 
   Widget passwordField(BuildContext context) {
     return valueListenableBuilder(
-      listenable: widget.viewModel.passwordTextEditingController,
+      listenable: widget.viewModel.password,
       builder: (context, value) => LoginPasswordTextField(
-        passwordTextEditingController:
-            widget.viewModel.passwordTextEditingController,
-        errorText: widget.viewModel.getPasswordError(context),
+        textEditingController: passwordController,
+        onChanged: widget.viewModel.onPasswordChanged,
+        errorText:
+            widget.viewModel.passwordValidationError?.getLocalizedMessage(
+          context.localizations,
+        ),
       ),
     );
   }

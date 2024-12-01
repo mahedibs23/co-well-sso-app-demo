@@ -1,7 +1,6 @@
 import 'package:domain/repository/auth_repository.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:hello_flutter/presentation/base/base_viewmodel.dart';
-import 'package:hello_flutter/presentation/common/extension/context_ext.dart';
 import 'package:hello_flutter/presentation/feature/auth/login/route/login_argument.dart';
 import 'package:hello_flutter/presentation/feature/auth/validator/email_validator.dart';
 import 'package:hello_flutter/presentation/feature/auth/validator/password_validator.dart';
@@ -15,67 +14,41 @@ class LoginViewModel extends BaseViewModel<LoginArgument> {
 
   LoginViewModel({required this.authRepository});
 
-  final TextEditingController emailTextEditingController =
-      TextEditingController();
-  final TextEditingController passwordTextEditingController =
-      TextEditingController();
+  final ValueNotifier<String?> _email = ValueNotifier(null);
 
-  String? getEmailError(BuildContext context) {
-    if (emailTextEditingController.selection.baseOffset == -1) return null;
-    EmailValidationError? emailError =
-        EmailValidator.getValidationError(emailTextEditingController.text);
-    if (emailError == null) return null;
+  ValueListenable<String?> get email => _email;
 
-    if (emailError == EmailValidationError.empty) {
-      return context.localizations.login__login_form__email_field_empty;
-    }
-    if (emailError == EmailValidationError.invalid) {
-      return context
-          .localizations.login__login_form__email_field_invalid_email_text;
-    }
-    return null;
+  final ValueNotifier<String?> _password = ValueNotifier(null);
+
+  ValueListenable<String?> get password => _password;
+
+  EmailValidationError? get emailValidationError =>
+      EmailValidator.getValidationError(email.value);
+
+  PasswordValidationError? get passwordValidationError =>
+      PasswordValidator.getValidationError(password.value);
+
+  void onEmailChanged(String value) {
+    _email.value = value;
   }
 
-  String? getPasswordError(BuildContext context) {
-    if (passwordTextEditingController.selection.baseOffset == -1) return null;
-    PasswordValidationError? passwordError =
-        PasswordValidator.getValidationError(
-            passwordTextEditingController.text);
-    if (passwordError == null) return null;
-
-    if (passwordError == PasswordValidationError.empty) {
-      return context.localizations.login__login_form__password_field_empty;
-    }
-    if (passwordError == PasswordValidationError.containsSpace) {
-      return context.localizations
-          .login__login_form__password_field_invalid_password_must_not_contain_any_whitespace;
-    }
-    if (passwordError == PasswordValidationError.noDigit) {
-      return context.localizations
-          .login__login_form__password_field_invalid_password_must_contain_atleast_one_digit;
-    }
-    if (passwordError == PasswordValidationError.noUppercase) {
-      return context.localizations
-          .login__login_form__password_field_invalid_password_must_contain_atleast_one_uppercase_letter;
-    }
-    if (passwordError == PasswordValidationError.noLowercase) {
-      return context.localizations
-          .login__login_form__password_field_invalid_password_must_contain_atleast_one_lowercase_letter;
-    }
-    if (passwordError == PasswordValidationError.noSpecialChar) {
-      return context.localizations
-          .login__login_form__password_field_invalid_password_must_contain_atleast_one_special_character;
-    }
-    if (passwordError == PasswordValidationError.tooShort) {
-      return context.localizations
-          .login__login_form__password_field_invalid_password_must_be_atleast_eight_char_long;
-    }
-    return null;
+  void onPasswordChanged(String value) {
+    _password.value = value;
   }
 
   Future<void> onLoginButtonClicked() async {
-    if (!EmailValidator.isValid(emailTextEditingController.text) ||
-        !PasswordValidator.isValid(passwordTextEditingController.text)) {
+    if (email.value == null || password.value == null) {
+      showToast(
+        uiText: DynamicUiText(
+          textId: PleaseFillUpAllTheRequiredFieldsTextId(),
+          fallbackText: "Please fill up all fields",
+        ),
+      );
+      return;
+    }
+
+    if (!EmailValidator.isValid(email.value) ||
+        !PasswordValidator.isValid(password.value)) {
       showToast(
         uiText: DynamicUiText(
           textId: PleaseFillUpAllTheRequiredFieldsTextId(),
@@ -86,21 +59,14 @@ class LoginViewModel extends BaseViewModel<LoginArgument> {
     }
 
     final userSession = await loadData(authRepository.login(
-      email: emailTextEditingController.text,
-      password: passwordTextEditingController.text,
+      email: email.value!,
+      password: password.value!,
     ));
 
     navigateToScreen(
       destination: HomeRoute(arguments: HomeArgument(userId: '123')),
       isClearBackStack: true,
     );
-  }
-
-  @override
-  void onDispose() {
-    emailTextEditingController.dispose();
-    passwordTextEditingController.dispose();
-    super.onDispose();
   }
 
   onForgotPasswordButtonClicked() {}

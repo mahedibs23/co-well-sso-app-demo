@@ -2,19 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:hello_flutter/presentation/common/extension/context_ext.dart';
 
 class LoginEmailTextField extends StatelessWidget {
-  final TextEditingController emailTextEditingController;
+  final TextEditingController textEditingController;
+  final ValueChanged<String> onChanged;
   final String? errorText;
 
   const LoginEmailTextField({
-    required this.emailTextEditingController,
-    required this.errorText,
+    required this.textEditingController,
+    required this.onChanged,
+    this.errorText,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextField(
-      controller: emailTextEditingController,
+      controller: textEditingController,
+      onChanged: onChanged,
       decoration: InputDecoration(
         prefixIcon: const Icon(Icons.email),
         border: const OutlineInputBorder(),
