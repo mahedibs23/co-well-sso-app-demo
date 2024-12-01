@@ -36,6 +36,11 @@ scalable, maintainable codebase.
 - **Crash Reporting**: Integrate crash reporting tools like Firebase Crashlytics/Sentry.
 - **Push Notifications**: Implement push notifications using Firebase Cloud Messaging.
 - **Deep Linking**: Implement deep linking for navigation within the app.
+- **App Lifecycle**: Handle app lifecycle events like onResume, onPause, etc.
+- **Accessibility**: Implement accessibility features for users with disabilities.
+- **Animations**: Add animations to enhance the user experience.
+- **Splash screen + Native Splash**: Implement a splash screen with native splash screen support.
+- **Custom Colors**: Add custom colors to the theme for consistent branding.
 
 ## Target Devices
 
@@ -120,7 +125,11 @@ dart create_feature.dart feature_name
 ## Flutter
 
 In AndroidStudio Go to Edit > Find > Replace in Files (Ctrl + Shift + R) and replace the following
-`hello_flutter` with `your_app_name`, and `Hello Flutter` with `Your App Name`
+
+- `Hello Flutter` with `Your App Name`
+- `hello_flutter` with `your_app_name`
+- `hello-flutter` with `your-app-name`
+- `com.mahfuznow` with `com.yourdomain`
 
 ### Android
 
