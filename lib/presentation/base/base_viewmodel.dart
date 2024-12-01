@@ -79,7 +79,7 @@ abstract class BaseViewModel<A extends BaseArgument> {
   /// This method can be used to call repository methods and handle the loading and error states
   @protected
   Future<T> loadData<T>(
-    Future<T> Function() function, {
+    Future<T> future, {
     bool showLoading = true,
     bool shouldShowToast = true,
   }) async {
@@ -87,7 +87,7 @@ abstract class BaseViewModel<A extends BaseArgument> {
       if (showLoading) {
         showLoadingDialog();
       }
-      final f = await function().catchError((e) {
+      final f = await future.catchError((e) {
         //This will catch the Future.error thrown from the repository
         throw e;
       });

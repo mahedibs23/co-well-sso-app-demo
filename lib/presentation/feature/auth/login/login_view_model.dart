@@ -85,10 +85,10 @@ class LoginViewModel extends BaseViewModel<LoginArgument> {
       return;
     }
 
-    final userSession = await loadData(() => authRepository.login(
-          email: emailTextEditingController.text,
-          password: passwordTextEditingController.text,
-        ));
+    final userSession = await loadData(authRepository.login(
+      email: emailTextEditingController.text,
+      password: passwordTextEditingController.text,
+    ));
 
     navigateToScreen(
       destination: HomeRoute(arguments: HomeArgument(userId: '123')),

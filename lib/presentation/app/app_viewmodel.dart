@@ -25,13 +25,13 @@ class AppViewModel extends BaseViewModel {
 
   Future<void> _loadThemeInfo() async {
     selectedThemeMode.value = await loadData(
-      () => appRepository.getApplicationThemeMode(),
+      appRepository.getApplicationThemeMode(),
     );
   }
 
   Future<void> _loadLanguageInfo() async {
     selectedLanguage.value = await loadData(
-      () => appRepository.getApplicationLocale(),
+      appRepository.getApplicationLocale(),
     );
   }
 

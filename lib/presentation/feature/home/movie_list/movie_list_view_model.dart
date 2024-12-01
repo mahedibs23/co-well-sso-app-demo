@@ -1,7 +1,7 @@
-import 'package:flutter/foundation.dart';
 import 'package:domain/model/movie.dart';
 import 'package:domain/model/movie_list_by_category.dart';
 import 'package:domain/repository/movie_repository.dart';
+import 'package:flutter/foundation.dart';
 import 'package:hello_flutter/presentation/base/base_viewmodel.dart';
 import 'package:hello_flutter/presentation/feature/home/movie_list/route/movie_list_argument.dart';
 import 'package:hello_flutter/presentation/feature/movieDetails/route/movie_details_argument.dart';
@@ -35,7 +35,7 @@ class MovieListViewModel extends BaseViewModel<MovieListArgument> {
   }
 
   void fetchMovies() async {
-    List<Movie>? movies = await loadData(() => movieRepository.getMovieList());
+    List<Movie>? movies = await loadData(movieRepository.getMovieList());
     if (movies != null && movies.isNotEmpty) {
       _movies.value = movies;
     }
@@ -43,7 +43,7 @@ class MovieListViewModel extends BaseViewModel<MovieListArgument> {
 
   void fetchMoviesGroupedByGenre() async {
     List<MovieListByGenre> allGenreMovies =
-        await loadData(() => movieRepository.getMoviesGroupedByGenre());
+        await loadData(movieRepository.getMoviesGroupedByGenre());
     if (allGenreMovies.isNotEmpty) {
       _moviesGroupedByGenre.value = allGenreMovies;
     }
