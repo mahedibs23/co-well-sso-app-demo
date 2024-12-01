@@ -203,11 +203,12 @@ using Xcode UI for each build type.
 - Using [Icon Kitchen](https://icon.kitchen/) we can generate different app icons (Badge) for
   different flavors.
 - This website will provide the necessary files for both Android and iOS.
-- For Android, we can use the `res` folder which is provided by the website.
-- For iOS, we can upscale the `play_store_512.png` file to 1024x1024 using
-  this [Image Resizer](https://imageresizer.com/), then open the iOS project in
-  Xcode and add this image to the Assets.xcassets folder, setting it as a single size in the image
-  properties.
+- For Android, copy the contents of the `android` folder of the downloaded folder to the respective
+  flavor folders in
+  `android/app/src`. Example: for `dev` paste into `android/app/src/flavor_dev/`.
+- For iOS, copy the `ios/AppIcon~ios-marketing.png` file from the downloaded folder to the
+  corresponding flavor folder in `ios/Runner/Assets.xcassets`. Example: for `dev` paste
+  into `ios/Runner/Assets.xcassets/flavor_devAppIcon.appiconset`.
 
 ### Flutter
 
