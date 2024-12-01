@@ -1,16 +1,20 @@
 import 'package:domain/model/app_language.dart';
 import 'package:domain/model/app_theme_mode.dart';
 import 'package:domain/repository/app_repository.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:hello_flutter/presentation/base/base_viewmodel.dart';
 
 class AppViewModel extends BaseViewModel {
   final AppRepository appRepository;
-  final ValueNotifier<AppThemeMode> selectedThemeMode =
+  final ValueNotifier<AppThemeMode> _selectedThemeMode =
       ValueNotifier(AppThemeMode.system);
 
-  final ValueNotifier<AppLanguage> selectedLanguage =
+  ValueListenable<AppThemeMode> get selectedThemeMode => _selectedThemeMode;
+
+  final ValueNotifier<AppLanguage> _selectedLanguage =
       ValueNotifier(AppLanguage.ja);
+
+  ValueListenable<AppLanguage> get selectedLanguage => _selectedLanguage;
 
   AppViewModel({
     required this.appRepository,
@@ -24,24 +28,24 @@ class AppViewModel extends BaseViewModel {
   }
 
   Future<void> _loadThemeInfo() async {
-    selectedThemeMode.value = await loadData(
+    _selectedThemeMode.value = await loadData(
       appRepository.getApplicationThemeMode(),
     );
   }
 
   Future<void> _loadLanguageInfo() async {
-    selectedLanguage.value = await loadData(
+    _selectedLanguage.value = await loadData(
       appRepository.getApplicationLocale(),
     );
   }
 
   Future<void> onThemeChangeRequest(AppThemeMode appThemeMode) async {
     await appRepository.saveApplicationThemeMode(appThemeMode);
-    selectedThemeMode.value = appThemeMode;
+    _selectedThemeMode.value = appThemeMode;
   }
 
   Future<void> onLanguageChangeRequest(AppLanguage language) async {
     await appRepository.saveApplicationLocale(language);
-    selectedLanguage.value = language;
+    _selectedLanguage.value = language;
   }
 }
