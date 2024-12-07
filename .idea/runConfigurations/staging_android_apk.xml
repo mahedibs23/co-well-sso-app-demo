@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="android_apk_prod" type="ShConfigurationType" focusToolWindowBeforeRun="true">
-    <option name="SCRIPT_TEXT" value="fvm flutter build apk --flavor flavor_prod --release -t ./lib/main/main_flavor_prod.dart &amp;&amp; open ./build/app/outputs/flutter-apk/" />
+  <configuration default="false" name="staging_android_apk" type="ShConfigurationType" focusToolWindowBeforeRun="true">
+    <option name="SCRIPT_TEXT" value="fvm flutter build apk --flavor flavor_staging --release -t ./lib/main/main_flavor_staging.dart &amp;&amp; open ./build/app/outputs/flutter-apk/" />
     <option name="INDEPENDENT_SCRIPT_PATH" value="true" />
     <option name="SCRIPT_PATH" value="" />
     <option name="SCRIPT_OPTIONS" value="" />
