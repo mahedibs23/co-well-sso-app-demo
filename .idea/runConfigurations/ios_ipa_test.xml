@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="ios_ipa_test" type="ShConfigurationType" focusToolWindowBeforeRun="true">
-    <option name="SCRIPT_TEXT" value="fvm flutter build ipa --flavor flavor_test --release -t ./lib/main/main_flavor_test.dart &amp;&amp; open ./build/ios/ipa" />
+    <option name="SCRIPT_TEXT" value="fvm flutter build ipa --flavor flavor_test --release -t ./lib/main/main_flavor_test.dart &amp;&amp; open ./build/ios/archive/Runner.xcarchive" />
     <option name="INDEPENDENT_SCRIPT_PATH" value="true" />
     <option name="SCRIPT_PATH" value="" />
     <option name="SCRIPT_OPTIONS" value="" />
