@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:hello_flutter/presentation/base/base_argument.dart';
 import 'package:hello_flutter/presentation/base/base_route.dart';
-import 'package:hello_flutter/presentation/feature/auth/login/route/login_argument.dart';
+import 'package:hello_flutter/presentation/feature/splash/route/splash_argument.dart';
 import 'package:hello_flutter/presentation/navigation/route_path.dart';
 
 class AppRouter {
-  static final initialRoute = RoutePath.login.toPathString;
+  static final initialRoute = RoutePath.splash.toPathString;
 
-  static BaseArgument initialArguments = LoginArgument();
+  static BaseArgument initialArguments = SplashArgument();
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     final argObj = settings.arguments;

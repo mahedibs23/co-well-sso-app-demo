@@ -4,6 +4,7 @@ import 'package:data/di/data_module.dart';
 import 'package:data/local/shared_preference/shared_pref_manager.dart';
 import 'package:data/repository/app_repository_impl.dart';
 import 'package:domain/di/di_module.dart';
+import 'package:domain/repository/app_repository.dart';
 import 'package:domain/util/logger.dart';
 import 'package:flutter/material.dart';
 import 'package:hello_flutter/presentation/app/app_viewmodel.dart';
@@ -30,8 +31,12 @@ class _MyAppState extends BaseUiState<MyApp> {
   @override
   void initState() {
     super.initState();
+    final AppRepository appRepository = AppRepositoryImpl(
+      sharedPrefManager: SharedPrefManager(),
+    );
+    DiModule().registerSingleton(appRepository);
     viewModel = AppViewModel(
-      appRepository: AppRepositoryImpl(sharedPrefManager: SharedPrefManager()),
+      appRepository: appRepository,
     );
     DiModule().registerSingleton(viewModel);
     _dataModule.injectDependencies();
@@ -39,6 +44,7 @@ class _MyAppState extends BaseUiState<MyApp> {
 
   @override
   void dispose() {
+    DiModule().unregisterSingleton<AppRepository>();
     DiModule().unregisterSingleton<AppViewModel>();
     _dataModule.removeDependencies();
     super.dispose();

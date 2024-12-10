@@ -1,3 +1,5 @@
+import 'package:hello_flutter/presentation/feature/splash/route/splash_argument.dart';
+import 'package:hello_flutter/presentation/feature/splash/route/splash_route.dart';
 import 'package:hello_flutter/presentation/base/base_argument.dart';
 import 'package:hello_flutter/presentation/base/base_route.dart';
 import 'package:hello_flutter/presentation/feature/auth/login/route/login_argument.dart';
@@ -20,6 +22,7 @@ enum RoutePath {
   movieBookmark,
   setting,
   movieDetails,
+  splash, 
   unknown;
 
   static RoutePath fromString(String? path) {
@@ -38,6 +41,8 @@ enum RoutePath {
         return RoutePath.setting;
       case '/movieDetails':
         return RoutePath.movieDetails;
+      case '/splash':
+        return RoutePath.splash;
       default:
         return RoutePath.unknown;
     }
@@ -59,6 +64,8 @@ enum RoutePath {
         return '/setting';
       case RoutePath.movieDetails:
         return '/movieDetails';
+      case RoutePath.splash:
+        return '/splash';
       default:
         return '';
     }
@@ -90,6 +97,11 @@ enum RoutePath {
           throw Exception('SettingsArgument is required');
         }
         return SettingsRoute(arguments: arguments);
+      case RoutePath.splash:
+        if (arguments is! SplashArgument) {
+          throw Exception('SplashArgument is required');
+        }
+        return SplashRoute(arguments: arguments);
       default:
         return UnknownRoute(arguments: arguments);
     }
