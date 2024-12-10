@@ -220,22 +220,7 @@ class ${featureClassName}MobileLandscape extends ${featureClassName}MobilePortra
   State<StatefulWidget> createState() => ${featureClassName}MobileLandscapeState();
 }
 
-class ${featureClassName}MobileLandscapeState extends ${featureClassName}MobilePortraitState {
-  @override
-  Widget build(BuildContext context) {
-   return Scaffold(
-      body: valueListenableBuilder(
-        listenable: widget.viewModel.message,
-        builder: (context, value) {
-          return InkWell(
-            child: Text('$featureClassName: \$value'),
-            onTap: () => widget.viewModel.onClick(),
-          );
-        },
-      ),
-    );
-  }
-}
+class ${featureClassName}MobileLandscapeState extends ${featureClassName}MobilePortraitState {}
 ''';
 
 String adaptiveUiContent() => '''
