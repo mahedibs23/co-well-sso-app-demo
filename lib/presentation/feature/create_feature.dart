@@ -149,7 +149,7 @@ class ${featureClassName}Argument extends BaseArgument {
   // int id;
   // String name;
   //
-  // HelloWorldArgument({required this.id, required this.name});
+  // ${featureClassName}Argument({required this.id, required this.name});
 }
 ''';
 
