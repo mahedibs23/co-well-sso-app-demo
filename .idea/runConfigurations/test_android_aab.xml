@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="test_android_abb" type="ShConfigurationType">
+  <configuration default="false" name="test_android_aab" type="ShConfigurationType">
     <option name="SCRIPT_TEXT" value="fvm flutter build appbundle --flavor flavor_test --release -t ./lib/main/main_flavor_test.dart &amp;&amp; open ./build/app/outputs/bundle/flavor_testRelease/" />
     <option name="INDEPENDENT_SCRIPT_PATH" value="true" />
     <option name="SCRIPT_PATH" value="" />

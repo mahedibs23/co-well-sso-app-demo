@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="dev_android_abb" type="ShConfigurationType">
-    <option name="SCRIPT_TEXT" value="fvm flutter build appbundle --flavor flavor_dev --release -t ./lib/main/main_flavor_dev.dart &amp;&amp; open ./build/app/outputs/bundle/flavor_devRelease/" />
+  <configuration default="false" name="prod_android_aab" type="ShConfigurationType">
+    <option name="SCRIPT_TEXT" value="fvm flutter build appbundle --flavor flavor_prod --release -t ./lib/main/main_flavor_prod.dart &amp;&amp; open ./build/app/outputs/bundle/flavor_prodRelease/" />
     <option name="INDEPENDENT_SCRIPT_PATH" value="true" />
     <option name="SCRIPT_PATH" value="" />
     <option name="SCRIPT_OPTIONS" value="" />
