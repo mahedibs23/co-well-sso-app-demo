@@ -129,15 +129,14 @@ import '$packageName/$baseBindingFile';
 class ${featureClassName}Binding extends BaseBinding {
   @override
   Future<void> addDependencies() async {
-    // ${featureClassName}Repository ${featureVariableName}Repository = await diModule.resolve<${featureClassName}Repository>();
-    // return diModule.registerInstance(
-    //   ${featureClassName}ViewModel(${featureVariableName}Repository: ${featureVariableName}Repository),
-    // );
+    return diModule.registerInstance(
+      ${featureClassName}ViewModel(),
+    );
   }
 
   @override
   Future<void> removeDependencies() async {
-    // return diModule.unregister<${featureClassName}ViewModel>();
+    return diModule.unregister<${featureClassName}ViewModel>();
   }
 }
 ''';
