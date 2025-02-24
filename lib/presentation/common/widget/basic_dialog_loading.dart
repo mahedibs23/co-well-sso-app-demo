@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'app_loading_indicator.dart';
+
 Widget basicLoadingDialog({bool shouldCancelOnBackPress = false}) {
   return PopScope(
     canPop: false,
@@ -12,7 +14,7 @@ Widget basicLoadingDialog({bool shouldCancelOnBackPress = false}) {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            CircularProgressIndicator(),
+            AppLoadingIndicator(),
             SizedBox(
               height: 15,
             ),

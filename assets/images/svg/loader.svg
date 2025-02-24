@@ -6,7 +6,7 @@
         <radialGradient id="paint0_angular_6844_45631" cx="0" cy="0" r="1"
             gradientUnits="userSpaceOnUse"
             gradientTransform="translate(75 75.5) rotate(-66.2505) scale(81.939 81.3324)">
-            <stop stop-color="#04589b" />
+            <stop stop-color="#1abbf0" />
             <stop offset="0.95" stop-color="#1abbfb" />
         </radialGradient>
     </defs>

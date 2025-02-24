@@ -12,6 +12,7 @@ import 'package:hello_flutter/presentation/base/base_state.dart';
 import 'package:hello_flutter/presentation/base/base_ui_state.dart';
 import 'package:hello_flutter/presentation/base/base_viewmodel.dart';
 import 'package:hello_flutter/presentation/common/extension/context_ext.dart';
+import 'package:hello_flutter/presentation/common/widget/app_loading_indicator.dart';
 import 'package:hello_flutter/presentation/localization/ui_text.dart';
 import 'package:hello_flutter/presentation/model/toast_type.dart';
 import 'package:hello_flutter/presentation/navigation/app_router.dart';
@@ -180,8 +181,10 @@ abstract class BaseAdaptiveUiState<
     showDialog(
       barrierDismissible: false,
       context: context,
-      builder: (context) => const Center(
-        child: CircularProgressIndicator(),
+      builder: (context) => Center(
+        child: AppLoadingIndicator(
+          color: AppColors.of(context).background,
+        ),
       ),
     );
   }
