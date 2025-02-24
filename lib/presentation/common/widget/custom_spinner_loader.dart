@@ -10,12 +10,12 @@ class CustomSpinnerLoader extends StatefulWidget {
     this.duration = const Duration(milliseconds: 1000),
   }) : super(key: key);
 
-
   @override
-  _CustomSpinnerLoaderState createState() => _CustomSpinnerLoaderState();
+  CustomSpinnerLoaderState createState() => CustomSpinnerLoaderState();
 }
 
-class _CustomSpinnerLoaderState extends State<CustomSpinnerLoader> with SingleTickerProviderStateMixin {
+class CustomSpinnerLoaderState extends State<CustomSpinnerLoader>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Widget _child;
 

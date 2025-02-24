@@ -58,7 +58,7 @@ class LoginViewModel extends BaseViewModel<LoginArgument> {
       return;
     }
 
-    final userSession = await loadData(authRepository.login(
+    await loadData(authRepository.login(
       email: email.value!,
       password: password.value!,
     ));

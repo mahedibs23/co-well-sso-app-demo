@@ -142,5 +142,7 @@ env/.env.*
 
 lib/presentation/localization/generated/*
 
-.fvm/*
 !.fvm/fvm_config.json
+
+# FVM Version Cache
+.fvm/

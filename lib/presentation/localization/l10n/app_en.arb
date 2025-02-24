@@ -255,5 +255,13 @@
   "location_error_msg__current_country_not_found": "Current country not found. Please try again",
   "@location_error_msg__current_country_not_found": {
     "type": "text"
+  },
+  "app_info__app_version": "App Version",
+  "@app_info__app_version": {
+    "type": "text"
+  },
+  "app_info__build_number": "Build Number",
+  "@app_info__build_number": {
+    "type": "text"
   }
 }

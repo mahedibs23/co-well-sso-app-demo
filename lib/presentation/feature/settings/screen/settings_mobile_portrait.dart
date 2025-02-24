@@ -1,8 +1,5 @@
-import 'package:domain/model/app_language.dart';
-import 'package:domain/model/app_theme_mode.dart';
 import 'package:flutter/material.dart';
 import 'package:hello_flutter/presentation/base/base_ui_state.dart';
-import 'package:hello_flutter/presentation/common/extension/context_ext.dart';
 import 'package:hello_flutter/presentation/feature/settings/screen/widgets/language_settings.dart';
 import 'package:hello_flutter/presentation/feature/settings/screen/widgets/theme_settings.dart';
 import 'package:hello_flutter/presentation/feature/settings/settings_view_model.dart';

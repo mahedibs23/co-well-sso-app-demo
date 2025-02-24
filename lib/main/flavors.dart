@@ -1,3 +1,4 @@
+//ignore_for_file: depend_on_referenced_packages
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hello_flutter/presentation/localization/generated/app_localizations.dart';
 
@@ -18,8 +19,6 @@ enum AppFlavor {
         return 'Staging';
       case AppFlavor.prod:
         return 'Prod';
-      default:
-        return 'Unknown';
     }
   }
 }

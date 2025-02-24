@@ -58,8 +58,6 @@ enum NavigationItemType {
         return localizations.navigation_item__bookmark;
       case NavigationItemType.settings:
         return localizations.navigation_item__settings;
-      default:
-        return '';
     }
   }
 }

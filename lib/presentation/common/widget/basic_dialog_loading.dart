@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 
 Widget basicLoadingDialog({bool shouldCancelOnBackPress = false}) {
-  return WillPopScope(
-    onWillPop: () => Future.value(shouldCancelOnBackPress),
+  return PopScope(
+    canPop: false,
+    onPopInvokedWithResult: (_, __) => Future.value(
+      shouldCancelOnBackPress,
+    ),
     child: const Dialog(
       child: Padding(
         padding: EdgeInsets.symmetric(vertical: 20),

@@ -15,7 +15,7 @@ import 'package:geocoding/geocoding.dart' as geocoding;
 import 'package:geolocator/geolocator.dart';
 
 class LocationRepositoryImpl extends LocationRepository {
-  final String TAG = 'LocationRepositoryImpl';
+  final String tag = 'LocationRepositoryImpl';
 
   @override
   Future<Location> getCurrentLocation() async {
@@ -23,7 +23,7 @@ class LocationRepositoryImpl extends LocationRepository {
     // When we reach here, permissions are granted and we can
     // continue accessing the position of the device.
     Position position = await Geolocator.getCurrentPosition();
-    Logger.debug('$TAG: ${position.latitude}, ${position.longitude}');
+    Logger.debug('$tag: ${position.latitude}, ${position.longitude}');
     final LocationSharedPrefEntity locationSharedPrefEntity =
         LocationSharedPrefEntity(
       latitude: position.latitude,
@@ -146,7 +146,7 @@ class LocationRepositoryImpl extends LocationRepository {
       // Location services are not enabled don't continue
       // accessing the position and request users of the
       // App to enable the location services.
-      Logger.error('$TAG: Location services are disabled');
+      Logger.error('$tag: Location services are disabled');
       throw ServiceDisabledLocationException('Location services are disabled');
     }
 
@@ -159,7 +159,7 @@ class LocationRepositoryImpl extends LocationRepository {
         // Android's shouldShowRequestPermissionRationale
         // returned true. According to Android guidelines
         // your App should show an explanatory UI now.
-        Logger.error('$TAG: Location permissions are denied');
+        Logger.error('$tag: Location permissions are denied');
 
         throw PermissionDeniedLocationException(
             'Location permissions are denied');
@@ -168,7 +168,7 @@ class LocationRepositoryImpl extends LocationRepository {
 
     if (permission == LocationPermission.deniedForever) {
       // Permissions are denied forever, handle appropriately.
-      Logger.error('$TAG: Location permissions are permanently denied');
+      Logger.error('$tag: Location permissions are permanently denied');
 
       throw PermissionDeniedForeverLocationException(
           'Location permissions are permanently denied');

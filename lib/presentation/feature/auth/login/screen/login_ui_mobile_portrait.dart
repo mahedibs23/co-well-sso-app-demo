@@ -8,6 +8,7 @@ import 'package:hello_flutter/presentation/feature/auth/login/widgets/login_emai
 import 'package:hello_flutter/presentation/feature/auth/login/widgets/login_password_text_field.dart';
 import 'package:hello_flutter/presentation/localization/extension/email_validation_error_ext.dart';
 import 'package:hello_flutter/presentation/localization/extension/password_validation_error_ext.dart';
+import 'package:hello_flutter/presentation/values/app_assets.dart';
 import 'package:hello_flutter/presentation/values/dimens.dart';
 
 class LoginUiMobilePortrait extends StatefulWidget {
@@ -75,7 +76,7 @@ class LoginUiMobilePortraitState extends BaseUiState<LoginUiMobilePortrait> {
     return Column(
       children: [
         Image.asset(
-          "assets/images/app_logo.png",
+          AppAssets.appLogo,
           width: Dimens.dimen_100,
           height: Dimens.dimen_100,
         ),

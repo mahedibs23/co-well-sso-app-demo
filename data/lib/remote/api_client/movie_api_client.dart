@@ -1,3 +1,4 @@
+//ignore_for_file: depend_on_referenced_packages
 import 'package:data/local/shared_preference/entity/user_session_shared_pref_entity.dart';
 import 'package:data/remote/api_client/api_client.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';

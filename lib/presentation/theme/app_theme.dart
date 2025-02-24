@@ -6,6 +6,7 @@ abstract class AppTheme {
   abstract final AppColors appColors;
   final TextTheme textTheme = AppTextTheme();
   abstract final Brightness brightness;
+  abstract final AppBarTheme appBarTheme;
 
   ThemeData getThemeData() {
     return ThemeData(
@@ -28,11 +29,9 @@ abstract class AppTheme {
         onError: appColors.onError,
         errorContainer: appColors.errorContainer,
         onErrorContainer: appColors.onErrorContainer,
-        background: appColors.background,
-        onBackground: appColors.onBackground,
-        surface: appColors.surface,
-        onSurface: appColors.onSurface,
-        surfaceVariant: appColors.surfaceVariant,
+        surface: appColors.background,
+        onSurface: appColors.onBackground,
+        surfaceContainerHighest: appColors.surfaceVariant,
         onSurfaceVariant: appColors.onSurfaceVariant,
         outline: appColors.outline,
         outlineVariant: appColors.outlineVariant,
@@ -44,6 +43,7 @@ abstract class AppTheme {
         surfaceTint: appColors.surfaceTint,
       ),
       textTheme: textTheme,
+      appBarTheme: appBarTheme,
     );
   }
 }

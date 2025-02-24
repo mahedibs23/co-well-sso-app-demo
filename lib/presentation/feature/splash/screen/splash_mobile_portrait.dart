@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hello_flutter/presentation/base/base_ui_state.dart';
+import 'package:hello_flutter/presentation/common/extension/context_ext.dart';
 import 'package:hello_flutter/presentation/common/widget/asset_image_view.dart';
 import 'package:hello_flutter/presentation/feature/splash/splash_view_model.dart';
+import 'package:hello_flutter/presentation/values/app_assets.dart';
 import 'package:hello_flutter/presentation/values/dimens.dart';
 
 class SplashMobilePortrait extends StatefulWidget {
@@ -24,7 +26,7 @@ class SplashMobilePortraitState extends BaseUiState<SplashMobilePortrait> {
             children: [
               Center(
                 child: AssetImageView(
-                  fileName: 'app_logo.png',
+                  filePath: AppAssets.appLogo,
                   width: Dimens.dimen_100,
                 ),
               ),
@@ -33,7 +35,7 @@ class SplashMobilePortraitState extends BaseUiState<SplashMobilePortrait> {
                 child: Padding(
                   padding: EdgeInsets.all(Dimens.dimen_16),
                   child: Text(
-                    "App version: ${value?.version}, Build ${value?.buildNumber}",
+                    "${context.localizations.app_info__app_version}: ${value?.version}, ${context.localizations.app_info__build_number} ${value?.buildNumber}",
                     style: Theme.of(context).textTheme.bodySmall,
                   ),
                 ),

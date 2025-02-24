@@ -17,7 +17,7 @@ class ScreenUtilBuilder extends StatelessWidget {
         designSize: _getLayoutSize(platformUtils),
         minTextAdapt: true,
         builder: (BuildContext context, Widget? child) {
-          return this.child ?? SizedBox.shrink();
+          return this.child ?? const SizedBox.shrink();
         },
       );
     });

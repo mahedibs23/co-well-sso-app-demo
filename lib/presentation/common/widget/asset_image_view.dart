@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class AssetImageView extends StatelessWidget {
   const AssetImageView({
-    required this.fileName,
+    required this.filePath,
     this.height,
     this.width,
     this.color,
@@ -12,7 +12,7 @@ class AssetImageView extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  final String fileName;
+  final String filePath;
   final double? height;
   final double? width;
   final Color? color;
@@ -25,10 +25,7 @@ class AssetImageView extends StatelessWidget {
   }
 
   Widget _getView() {
-    String mimType = fileName
-        .split(".")
-        .last;
-    String path = "assets/images/$fileName";
+    String mimType = filePath.split(".").last;
 
     if (mimType.isEmpty) {
       return Icon(
@@ -41,17 +38,22 @@ class AssetImageView extends StatelessWidget {
     switch (mimType) {
       case "svg":
         return SvgPicture.asset(
-          path,
+          filePath,
           height: height,
           width: width,
-          color: color,
+          colorFilter: color == null
+              ? null
+              : ColorFilter.mode(
+                  color!,
+                  BlendMode.srcIn,
+                ),
           fit: fit ?? BoxFit.contain,
         );
       case "png":
       case "jpg":
       case "jpeg":
         return Image.asset(
-          path,
+          filePath,
           height: height,
           width: width,
           color: color,

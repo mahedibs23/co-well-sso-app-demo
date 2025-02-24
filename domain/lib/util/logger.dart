@@ -1,3 +1,4 @@
+//ignore_for_file: avoid_print
 import 'package:logger/logger.dart' as package_logger;
 
 enum LogType { debug, info, warning, error }

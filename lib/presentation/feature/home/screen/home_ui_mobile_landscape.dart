@@ -9,8 +9,4 @@ class HomeUiMobileLandscape extends HomeUiMobilePortrait {
 }
 
 class HomeUiMobileLandscapeState extends HomeUiMobilePortraitState {
-  @override
-  Widget build(BuildContext context) {
-    return super.build(context);
-  }
 }
