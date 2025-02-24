@@ -50,25 +50,37 @@ flutter {
 }
 
 android {
-    namespace "com.mahfuznow.hello_flutter"
-    compileSdkVersion flutter.compileSdkVersion
-    ndkVersion flutter.ndkVersion
+    def appCompileSdkVersion = flutter.compileSdkVersion.toInteger()
+    def appNDKVersion = flutter.ndkVersion
+    def appPackageName = "com.mahfuznow.hello_flutter"
+    def appCurrentFlavor = getCurrentFlavor()
+    def appMinSdkVersion = 26
+    def appTargetSdkVersion = flutter.targetSdkVersion
+    def appVersionCode = flutterVersionCode.toInteger()
+    def appVersionName = flutterVersionName
+
+    println("==================ANDROID Gradle Info ======================")
+    println("Compile SDK version: " + appCompileSdkVersion)
+    println("NDK version: " + appNDKVersion)
+    println("Package name: " + appPackageName)
+    println("Current flavor: " + appCurrentFlavor)
+    println("Min SDK version: " + appMinSdkVersion)
+    println("Target SDK version: " + appTargetSdkVersion)
+    println("App Version code: " + appVersionCode)
+    println("App Version name: " + appVersionName)
+    println("==================ANDROID Gradle Info ======================")
+
+    namespace appPackageName
+    compileSdkVersion appCompileSdkVersion
+    ndkVersion appNDKVersion
 
     defaultConfig {
-        applicationId "com.mahfuznow.hello_flutter"
+        applicationId appPackageName
 
-        println("==================ANDROID Gradle Info ======================")
-        println("Current flavor: " + getCurrentFlavor())
-        println("Min SDK version: " + flutter.minSdkVersion)
-        println("Target SDK version: " + flutter.targetSdkVersion)
-        println("App Version code: " + flutterVersionCode)
-        println("App Version name: " + flutterVersionName)
-        println("==================ANDROID Gradle Info ======================")
-
-        minSdkVersion flutter.minSdkVersion
-        targetSdkVersion flutter.targetSdkVersion
-        versionCode flutterVersionCode.toInteger()
-        versionName flutterVersionName
+        minSdkVersion appMinSdkVersion
+        targetSdkVersion appTargetSdkVersion
+        versionCode appVersionCode
+        versionName appVersionName
 
         multiDexEnabled true
     }
@@ -175,12 +187,12 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = JavaVersion.VERSION_17
     }
 
     sourceSets {
