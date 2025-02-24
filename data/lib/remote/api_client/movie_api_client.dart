@@ -7,7 +7,7 @@ class MovieApiClient extends ApiClient {
   String get baseUrl => dotenv.env['API_BASE_URL']!;
 
   @override
-  Future<Map<String, String>> getCustomHeader() async {
+  Future<Map<String, String>> getAuthorizationHeader() async {
     final accessToken = (await UserSessionSharedPrefEntity.example
             .getFromSharedPref() as UserSessionSharedPrefEntity)
         .accessToken;
