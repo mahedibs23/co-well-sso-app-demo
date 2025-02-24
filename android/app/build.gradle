@@ -70,7 +70,7 @@ android {
     println("App Version name: " + appVersionName)
     println("==================ANDROID Gradle Info ======================")
 
-    namespace appPackageName
+    namespace "${appPackageName}"
     compileSdkVersion appCompileSdkVersion
     ndkVersion appNDKVersion
 
