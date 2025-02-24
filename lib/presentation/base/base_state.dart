@@ -1,6 +1,8 @@
 import 'package:domain/exceptions/base_exception.dart';
 import 'package:hello_flutter/presentation/base/base_route.dart';
 import 'package:hello_flutter/presentation/localization/ui_text.dart';
+import 'package:hello_flutter/presentation/model/toast_type.dart';
+import 'package:hello_flutter/presentation/navigation/route_path.dart';
 
 class BaseState {}
 
@@ -12,20 +14,28 @@ class NavigateBaseState extends BaseState {
   final BaseRoute destination;
   final bool isReplacement;
   final bool isClearBackStack;
+  final RoutePath? popUntilRoutePath;
   void Function()? onPop;
 
   NavigateBaseState({
     required this.destination,
     required this.isReplacement,
     this.isClearBackStack = false,
+    this.popUntilRoutePath,
     this.onPop,
   });
 }
 
 class ShowToastBaseState extends BaseState {
   final UiText uiText;
+  final ToastType toastType;
+  final Duration? toastDuration;
 
-  ShowToastBaseState({required this.uiText});
+  ShowToastBaseState({
+    required this.uiText,
+    this.toastType = ToastType.info,
+    this.toastDuration,
+  });
 }
 
 class HandleErrorBaseState extends BaseState {
@@ -38,4 +48,14 @@ class HandleErrorBaseState extends BaseState {
   });
 }
 
-class NavigateBackBaseState extends BaseState {}
+class NavigateBackBaseState extends BaseState {
+  final RoutePath? popUntilRoutePath;
+  void Function()? onComplete;
+
+  NavigateBackBaseState({
+    this.popUntilRoutePath,
+    this.onComplete,
+  });
+}
+
+class StartShowCaseBaseState extends BaseState {}

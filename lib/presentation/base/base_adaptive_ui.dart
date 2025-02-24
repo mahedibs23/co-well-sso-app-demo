@@ -13,7 +13,11 @@ import 'package:hello_flutter/presentation/base/base_ui_state.dart';
 import 'package:hello_flutter/presentation/base/base_viewmodel.dart';
 import 'package:hello_flutter/presentation/common/extension/context_ext.dart';
 import 'package:hello_flutter/presentation/localization/ui_text.dart';
+import 'package:hello_flutter/presentation/model/toast_type.dart';
 import 'package:hello_flutter/presentation/navigation/app_router.dart';
+import 'package:hello_flutter/presentation/navigation/route_path.dart';
+import 'package:hello_flutter/presentation/theme/color/app_colors.dart';
+import 'package:hello_flutter/presentation/values/dimens.dart';
 
 abstract class BaseAdaptiveUi<A extends BaseArgument, R extends BaseRoute<A>>
     extends StatefulWidget {
@@ -146,11 +150,16 @@ abstract class BaseAdaptiveUiState<
         destination: baseState.destination,
         isReplacement: baseState.isReplacement,
         isClearBackStack: baseState.isClearBackStack,
+        popUntilRoutePath: baseState.popUntilRoutePath,
         onPop: baseState.onPop,
       );
     }
     if (baseState is ShowToastBaseState) {
-      _showToast(uiText: baseState.uiText);
+      _showToast(
+        uiText: baseState.uiText,
+        toastType: baseState.toastType,
+        toastDuration: baseState.toastDuration,
+      );
     }
     if (baseState is HandleErrorBaseState) {
       _handleError(
@@ -160,7 +169,10 @@ abstract class BaseAdaptiveUiState<
       );
     }
     if (baseState is NavigateBackBaseState) {
-      _navigateBack();
+      _navigateBack(
+        baseState.popUntilRoutePath,
+        baseState.onComplete,
+      );
     }
   }
 
@@ -174,15 +186,54 @@ abstract class BaseAdaptiveUiState<
     );
   }
 
-  void _showToast({required UiText uiText}) {
-    Fluttertoast.showToast(
-      msg: uiText.extract(localizations: context.localizations),
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.BOTTOM,
-      timeInSecForIosWeb: 1,
-      backgroundColor: Colors.black54,
-      textColor: Colors.white,
-      fontSize: 16.0,
+  void _showToast({
+    required UiText uiText,
+    required ToastType toastType,
+    Duration? toastDuration,
+  }) {
+    FToast fToast = FToast();
+    fToast.init(context);
+    Widget toast = Container(
+      width: double.infinity,
+      padding: EdgeInsets.symmetric(
+          horizontal: Dimens.dimen_20, vertical: Dimens.dimen_10),
+      decoration: BoxDecoration(
+        color: toastType.getColor(context),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Expanded(
+            child: Text(
+              uiText.extract(localizations: context.localizations),
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    color: AppColors.of(context).onPrimary,
+                  ),
+            ),
+          ),
+          GestureDetector(
+            onTap: () => fToast.removeCustomToast(),
+            child: Icon(
+              Icons.close,
+              size: Dimens.dimen_14,
+              color: AppColors.of(context).onPrimary,
+            ),
+          )
+        ],
+      ),
+    );
+
+    // If any active toast present remove the toast.
+    // otherwise, it will show multiple toast fading out
+    // if we don't remove the previous toast
+    fToast.removeCustomToast();
+
+    fToast.showToast(
+      child: toast,
+      gravity: ToastGravity.TOP,
+      toastDuration: toastDuration ?? const Duration(seconds: 2),
+      fadeDuration: const Duration(milliseconds: 500),
     );
   }
 
@@ -195,21 +246,49 @@ abstract class BaseAdaptiveUiState<
     required BaseRoute destination,
     bool isReplacement = false,
     bool isClearBackStack = false,
+    RoutePath? popUntilRoutePath,
     void Function()? onPop,
   }) async {
     if (isClearBackStack) {
-      await AppRouter.navigateToAndClearStack(context, destination);
+      await AppRouter.navigateToAndClearStack(
+        context: context,
+        appRoute: destination,
+      );
+    } else if (popUntilRoutePath != null) {
+      AppRouter.popUntilAndThenNavigate(
+        context: context,
+        popUntilRoutePath: popUntilRoutePath,
+        navigateToRoute: destination,
+      );
     } else if (isReplacement) {
-      await AppRouter.pushReplacement(context, destination);
+      await AppRouter.pushReplacement(
+        context: context,
+        appRoute: destination,
+      );
     } else {
-      await AppRouter.navigateTo(context, destination);
+      await AppRouter.navigateTo(
+        context: context,
+        appRoute: destination,
+      );
     }
     onPop?.call();
   }
 
-  void _navigateBack() {
-    if (Navigator.of(context).canPop()) {
-      Navigator.of(context).pop();
+  void _navigateBack(
+    RoutePath? popUntilRoutePath,
+    VoidCallback? onComplete,
+  ) {
+    if (popUntilRoutePath != null) {
+      AppRouter.navigateBackUntil(
+        context: context,
+        routePath: popUntilRoutePath,
+        onComplete: onComplete,
+      );
+    } else {
+      AppRouter.navigateBack(
+        context: context,
+        onComplete: onComplete,
+      );
     }
   }
 
@@ -239,6 +318,7 @@ abstract class BaseAdaptiveUiState<
         uiText: FixedUiText(
           text: msg,
         ),
+        toastType: ToastType.error,
       );
     }
   }

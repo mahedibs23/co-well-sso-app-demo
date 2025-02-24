@@ -30,7 +30,10 @@ class AppRouter {
     return appRoute.toMaterialPageRoute();
   }
 
-  static Future<void> navigateTo(BuildContext context, BaseRoute appRoute) {
+  static Future<void> navigateTo({
+    required BuildContext context,
+    required BaseRoute appRoute,
+  }) {
     return Navigator.pushNamed(
       context,
       appRoute.routePath.toPathString,
@@ -38,12 +41,10 @@ class AppRouter {
     );
   }
 
-  static void navigateBack(BuildContext context) {
-    Navigator.pop(context);
-  }
-
-  static Future<void> navigateToAndClearStack(
-      BuildContext context, BaseRoute appRoute) {
+  static Future<void> navigateToAndClearStack({
+    required BuildContext context,
+    required BaseRoute appRoute,
+  }) {
     return Navigator.pushNamedAndRemoveUntil(
       context,
       appRoute.routePath.toPathString,
@@ -52,12 +53,68 @@ class AppRouter {
     );
   }
 
-  static Future<void> pushReplacement(
-      BuildContext context, BaseRoute appRoute) {
+  static Future<void> pushReplacement({
+    required BuildContext context,
+    required BaseRoute appRoute,
+  }) {
     return Navigator.pushReplacementNamed(
       context,
       appRoute.routePath.toPathString,
       arguments: appRoute.arguments,
     );
+  }
+
+  static void popUntilAndThenNavigate({
+    required BuildContext context,
+    required RoutePath popUntilRoutePath, // Route to pop until
+    required BaseRoute navigateToRoute, // Route to navigate to
+  }) {
+    _popUntil(
+      context: context,
+      routePath: popUntilRoutePath,
+      onComplete: () {
+        navigateTo(
+          context: context,
+          appRoute: navigateToRoute,
+        );
+      },
+    );
+  }
+
+  static void navigateBack({
+    required BuildContext context,
+    VoidCallback? onComplete,
+  }) {
+    Navigator.maybePop(context);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      onComplete?.call();
+    });
+  }
+
+  static void navigateBackUntil({
+    required BuildContext context,
+    required RoutePath routePath,
+    VoidCallback? onComplete,
+  }) {
+    _popUntil(
+      context: context,
+      routePath: routePath,
+      onComplete: onComplete,
+    );
+  }
+
+  static void _popUntil({
+    required BuildContext context,
+    required RoutePath routePath,
+    required VoidCallback? onComplete, // Callback when popUntil is done
+  }) {
+    Navigator.popUntil(context, (route) {
+      return route.settings.name == routePath.toPathString;
+    });
+
+    // Ensure execution happens in the next frame
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      onComplete?.call();
+    });
   }
 }

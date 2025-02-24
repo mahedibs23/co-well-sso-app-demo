@@ -3,40 +3,79 @@ import 'package:hello_flutter/presentation/theme/color/dark_app_colors.dart';
 import 'package:hello_flutter/presentation/theme/color/light_app_colors.dart';
 
 abstract class AppColors {
-  abstract Brightness brightness;
-  abstract Color primary;
-  abstract Color onPrimary;
-  abstract Color primaryContainer;
-  abstract Color onPrimaryContainer;
-  abstract Color secondary;
-  abstract Color onSecondary;
-  abstract Color secondaryContainer;
-  abstract Color onSecondaryContainer;
-  abstract Color tertiary;
-  abstract Color onTertiary;
-  abstract Color tertiaryContainer;
-  abstract Color onTertiaryContainer;
-  abstract Color error;
-  abstract Color onError;
-  abstract Color errorContainer;
-  abstract Color onErrorContainer;
-  abstract Color background;
-  abstract Color onBackground;
-  abstract Color surface;
-  abstract Color onSurface;
-  abstract Color surfaceVariant;
-  abstract Color onSurfaceVariant;
-  abstract Color outline;
-  abstract Color outlineVariant;
-  abstract Color shadow;
-  abstract Color scrim;
-  abstract Color inverseSurface;
-  abstract Color onInverseSurface;
-  abstract Color inversePrimary;
-  abstract Color surfaceTint;
+  Brightness get brightness;
 
-  abstract Color tripInfoChipIconColor;
-  abstract Color neutralVariant95;
+  Color get primary;
+
+  Color get onPrimary;
+
+  Color get primaryContainer;
+
+  Color get onPrimaryContainer;
+
+  Color get secondary;
+
+  Color get onSecondary;
+
+  Color get secondaryContainer;
+
+  Color get onSecondaryContainer;
+
+  Color get tertiary;
+
+  Color get onTertiary;
+
+  Color get tertiaryContainer;
+
+  Color get onTertiaryContainer;
+
+  Color get error;
+
+  Color get onError;
+
+  Color get errorContainer;
+
+  Color get onErrorContainer;
+
+  Color get background;
+
+  Color get onBackground;
+
+  Color get surface;
+
+  Color get onSurface;
+
+  Color get surfaceVariant;
+
+  Color get onSurfaceVariant;
+
+  Color get outline;
+
+  Color get outlineVariant;
+
+  Color get shadow;
+
+  Color get scrim;
+
+  Color get inverseSurface;
+
+  Color get onInverseSurface;
+
+  Color get inversePrimary;
+
+  Color get surfaceTint;
+
+  Color get customSuccess;
+
+  Color get customError;
+
+  Color get customWarning;
+
+  Color get customInfo;
+
+  Color get tripInfoChipIconColor;
+
+  Color get neutralVariant95;
 
   static AppColors of(BuildContext context) {
     return Theme.of(context).brightness == Brightness.light
