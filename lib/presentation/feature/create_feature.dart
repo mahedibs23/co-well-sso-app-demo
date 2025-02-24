@@ -1,3 +1,4 @@
+// ignore_for_file: unnecessary_null_comparison, avoid_print
 import 'dart:io';
 
 const String presentationDir = 'presentation';
@@ -48,7 +49,7 @@ String get featureViewModelFile =>
 String get featureAdaptiveUiFile =>
     '$featurePath/${featurePathName}_adaptive_ui.dart';
 
-const String packageName = 'package:hello_flutter';
+const String packageName = 'package:kirin_wellpark';
 
 void main(List<String> arguments) {
   String? inputFeatureName = '';
@@ -125,13 +126,17 @@ void createFeatureStructure() {
 
 String bindingContent() => '''
 import '$packageName/$baseBindingFile';
+import '$packageName/$featureViewModelFile';
 
 class ${featureClassName}Binding extends BaseBinding {
   @override
   Future<void> addDependencies() async {
+    // ${featureClassName}Repository ${featureVariableName}Repository = await diModule.resolve<${featureClassName}Repository>();
     return diModule.registerInstance(
-      ${featureClassName}ViewModel(),
-    );
+       ${featureClassName}ViewModel(
+       // ${featureVariableName}Repository: ${featureVariableName}Repository
+       ),
+     );
   }
 
   @override
@@ -168,6 +173,7 @@ class ${featureClassName}Route extends BaseRoute<${featureClassName}Argument> {
   @override
   MaterialPageRoute toMaterialPageRoute() {
     return MaterialPageRoute(
+      settings: RouteSettings(name: routePath.name),
       builder: (_) => ${featureClassName}AdaptiveUi(
         argument: arguments,
       ),
@@ -311,13 +317,13 @@ import '$packageName/$featureRouteFile';
   enumContent = enumContent.replaceFirstMapped(
       RegExp(r'(default:\s+return RoutePath\.unknown;)'),
       (match) =>
-          "case '/$featureVariableName':\n        return RoutePath.$featureVariableName;\n      ${match.group(0)}");
+          "case '$featureVariableName':\n        return RoutePath.$featureVariableName;\n      ${match.group(0)}");
 
   // Insert the new case for toPathString method
   enumContent = enumContent.replaceFirstMapped(
       RegExp(r"(default:\s+return '';)", multiLine: true),
       (match) =>
-          "case RoutePath.$featureVariableName:\n        return '/$featureVariableName';\n      ${match.group(0)}");
+          "case RoutePath.$featureVariableName:\n        return '$featureVariableName';\n      ${match.group(0)}");
 
   // Insert the new case for getAppRoute method
   enumContent = enumContent.replaceFirstMapped(
