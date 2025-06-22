@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hello_flutter/main/flavors.dart';
 import 'package:hello_flutter/presentation/base/base_ui_state.dart';
 import 'package:hello_flutter/presentation/common/extension/context_ext.dart';
 import 'package:hello_flutter/presentation/feature/home/home_view_model.dart';
@@ -25,7 +24,7 @@ class HomeUiMobilePortraitState extends BaseUiState<HomeUiMobilePortrait> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          F.getLocalizedAppTitleWithFlavor(context.localizations),
+          context.localizations.app_name,
           style: Theme.of(context).textTheme.titleLarge?.copyWith(
                 fontSize: Dimens.dimen_18,
               ),

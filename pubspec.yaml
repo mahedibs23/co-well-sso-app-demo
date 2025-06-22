@@ -33,7 +33,7 @@ flutter:
   uses-material-design: true
   generate: true
   assets:
-    - env/
+    - env-encrypted/
     - assets/images/
     - assets/images/png/
     - assets/images/svg/

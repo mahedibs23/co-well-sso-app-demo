@@ -11,7 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   logger: 2.0.2 # For pretty logging
-  flutter_dotenv: 5.1.0
+  encrypt: 5.0.3
 
 dev_dependencies:
   flutter_test:
