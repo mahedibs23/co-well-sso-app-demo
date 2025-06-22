@@ -15,8 +15,8 @@ dependencies:
     path: ../domain
   http: 1.2.2
   shared_preferences: 2.2.2
-  geolocator: 12.0.0
-  geocoding: 3.0.0
+  geolocator: 14.0.1
+  geocoding: 4.0.0
   package_info_plus: 8.1.1
 
 dev_dependencies:
