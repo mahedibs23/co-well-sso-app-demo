@@ -3,35 +3,46 @@
 ## Overview
 This directory contains comprehensive project context and documentation to support efficient development, code review, and AI assistance for Flutter boilerplate projects. This serves as a template for any Flutter project development.
 
+**For developer onboarding and tutorials, see [docs/](../docs/)**
+
+## Integration with Documentation
+- **Project configuration**: [project-config.md](project-config.md) - Single source of truth for project details
+- **Developer guides**: [../docs/](../docs/) - Complete onboarding and development documentation
+- **Cross-references**: Both systems reference shared configuration for consistency
+
 ## Directory Structure
 
 ```
 .llm-context/
-├── README.md                           # This file - context management guide
-├── project/                            # Project-specific documentation
-│   ├── architecture.md                 # Flutter architecture overview
-│   ├── technology-stack.md             # Flutter tech stack and dependencies
+├── README.md                           # This file - AI context management guide
+├── project-config.md                   # Central project configuration (single source of truth)
+├── project/                            # Project metadata and requirements
 │   ├── business-requirements.md        # Project requirements template
-│   ├── api-documentation.md            # API integration guidelines
-│   └── deployment-guide.md             # Flutter deployment process
-├── development/                        # Development standards and processes
-│   ├── code-review-guidelines.md       # Flutter code review framework
-│   ├── coding-standards.md             # Flutter/Dart coding standards
-│   ├── testing-strategy.md             # Flutter testing approach
-│   ├── git-workflow.md                 # Git workflow for Flutter projects
-│   └── troubleshooting.md              # Common Flutter issues and solutions
-├── team/                               # Team organization and communication
-│   ├── team-structure.md               # Team roles and responsibilities
-│   ├── communication-protocols.md     # Communication standards
-│   ├── decision-log.md                 # Architecture decision records
-│   └── onboarding-guide.md             # New team member guide
+│   ├── technology-stack.md             # Flutter tech stack and dependencies
+│   └── open-issues.md                  # Project maintenance items
+├── context/                            # AI-specific context
+│   └── preferences.md                  # AI assistant preferences
 ├── templates/                          # Reusable templates
-│   ├── pull-request-template.md        # PR template with checklists
-│   ├── issue-template.md               # Bug/feature issue templates
-│   ├── meeting-notes-template.md       # Meeting documentation
-│   └── code-review-report-template.md  # Project assessment template
-└── ai-context/                         # AI assistant configuration
-    └── preferences.md                  # AI assistant preferences
+│   ├── USAGE.md                        # Template usage guide
+│   └── comprehensive-report-generator-prompt.md  # Report generation template
+└── workflows/                          # Process definitions
+    └── (future workflow files)         # Code review, release processes, etc.
+```
+
+## 📁 Directory Structure
+
+### Development Guidelines
+> **Note:** Development guidelines have been moved to [`docs/`](../docs/README.md) for better developer accessibility:
+> - Best Practices → `docs/guides/best-practices.md`
+> - Security Guide → `docs/guides/security.md`
+> - Testing Strategy → `docs/guides/testing.md`
+> - API Integration → `docs/guides/api-integration.md`
+> - Deployment → `docs/guides/deployment.md`
+> - Architecture → `docs/reference/architecture.md`
+> - Coding Standards → `docs/reference/coding-standards.md`
+> - Git Workflow → `docs/reference/git-workflow.md`
+> - Code Review Guidelines → `docs/reference/code-review-guidelines.md`
+> - Troubleshooting → `docs/reference/troubleshooting.md`
 ```
 
 ## How to Use This Context

@@ -1,7 +1,18 @@
 # Flutter Boilerplate
 
-A starter template for Flutter projects designed to streamline the development process and ensure a
-scalable, maintainable codebase.
+> Production-ready Flutter boilerplate with MVVM Clean Architecture
+
+A starter template for Flutter projects designed to streamline the development process and ensure a scalable, maintainable codebase.
+
+## 📖 Documentation
+- **[Developer Guide](docs/)** - Complete onboarding, tutorials, and development guides
+- **[AI Context](.llm-context/)** - AI assistant context and team development processes
+
+## 🚀 Quick Start
+1. **[Installation Guide](docs/getting-started/installation.md)** - Set up your development environment
+2. **[Environment Setup](docs/configuration/environment-setup.md)** - Configure secrets and build flavors
+3. **[First Run](docs/getting-started/first-run.md)** - Run your first build
+4. **[Project Structure](docs/architecture/folder-structure.md)** - Understand the codebase organization
 
 ## Features
 
