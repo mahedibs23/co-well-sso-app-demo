@@ -23,6 +23,8 @@ dependencies:
   fluttertoast: 8.2.12
   flutter_screenutil: 5.9.0
   google_fonts: 6.1.0 # For custom fonts
+  url_launcher: 6.3.0
+  flutter_appauth: 9.0.1
 
 dev_dependencies:
   flutter_test:

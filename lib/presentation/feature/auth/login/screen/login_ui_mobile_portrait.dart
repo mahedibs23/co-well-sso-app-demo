@@ -1,14 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hello_flutter/presentation/base/base_ui_state.dart';
 import 'package:hello_flutter/presentation/common/extension/context_ext.dart';
-import 'package:hello_flutter/presentation/common/widget/overflow_scroll_view.dart';
 import 'package:hello_flutter/presentation/common/widget/primary_button.dart';
 import 'package:hello_flutter/presentation/feature/auth/login/login_view_model.dart';
-import 'package:hello_flutter/presentation/feature/auth/login/widgets/login_email_text_field.dart';
-import 'package:hello_flutter/presentation/feature/auth/login/widgets/login_password_text_field.dart';
-import 'package:hello_flutter/presentation/localization/extension/email_validation_error_ext.dart';
-import 'package:hello_flutter/presentation/localization/extension/password_validation_error_ext.dart';
-import 'package:hello_flutter/presentation/values/app_assets.dart';
 import 'package:hello_flutter/presentation/values/dimens.dart';
 
 class LoginUiMobilePortrait extends StatefulWidget {
@@ -21,132 +15,124 @@ class LoginUiMobilePortrait extends StatefulWidget {
 }
 
 class LoginUiMobilePortraitState extends BaseUiState<LoginUiMobilePortrait> {
-  late TextEditingController emailController;
-  late TextEditingController passwordController;
-
-  @override
-  void initState() {
-    super.initState();
-    emailController = TextEditingController(
-      text: widget.viewModel.email.value,
-    );
-    passwordController = TextEditingController(
-      text: widget.viewModel.password.value,
-    );
-  }
-
-  @override
-  void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(context.localizations.login__title_text),
-      ),
-      body: overflowScrollView(
-        child: loginForm(context),
-      ),
-    );
-  }
-
-  Widget loginForm(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: Dimens.dimen_40),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          logoView(context),
-          SizedBox(height: Dimens.dimen_40),
-          emailAndPasswordFields(context),
-          SizedBox(height: Dimens.dimen_20),
-          loginButton(context),
-          forgotPasswordButton(context),
-          SizedBox(height: Dimens.dimen_100),
-        ],
-      ),
-    );
-  }
-
-  Widget logoView(BuildContext context) {
-    return Column(
-      children: [
-        Image.asset(
-          AppAssets.appLogo,
-          width: Dimens.dimen_100,
-          height: Dimens.dimen_100,
-        ),
-        SizedBox(height: Dimens.dimen_10),
-        Text(
-          context.localizations.app_name,
-          textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                color: Theme.of(context).colorScheme.primary,
-              ),
-        )
-      ],
-    );
-  }
-
-  Widget emailAndPasswordFields(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: <Widget>[
-        emailField(context),
-        SizedBox(height: Dimens.dimen_10),
-        passwordField(context),
-      ],
-    );
-  }
-
-  Widget emailField(BuildContext context) {
-    return valueListenableBuilder(
-      listenable: widget.viewModel.email,
-      builder: (context, value) => LoginEmailTextField(
-        textEditingController: emailController,
-        onChanged: widget.viewModel.onEmailChanged,
-        errorText: widget.viewModel.emailValidationError?.getLocalizedMessage(
-          context.localizations,
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: const Color(0xFFF3F5F7),
+        body: Padding(
+          padding: EdgeInsets.symmetric(horizontal: Dimens.dimen_24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const Spacer(flex: 5),
+              _lockIcon(context),
+              SizedBox(height: Dimens.dimen_32),
+              _welcomeTitle(context),
+              SizedBox(height: Dimens.dimen_40),
+              _ssoButton(context),
+              SizedBox(height: Dimens.dimen_32),
+              _forgotPasswordButton(context),
+              SizedBox(height: Dimens.dimen_16),
+              _registerRow(context),
+              const Spacer(flex: 7),
+            ],
+          ),
         ),
       ),
     );
   }
 
-  Widget passwordField(BuildContext context) {
-    return valueListenableBuilder(
-      listenable: widget.viewModel.password,
-      builder: (context, value) => LoginPasswordTextField(
-        textEditingController: passwordController,
-        onChanged: widget.viewModel.onPasswordChanged,
-        errorText:
-            widget.viewModel.passwordValidationError?.getLocalizedMessage(
-          context.localizations,
-        ),
+  Widget _lockIcon(BuildContext context) {
+    return Container(
+      width: Dimens.dimen_60,
+      height: Dimens.dimen_60,
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.primary,
+        borderRadius: BorderRadius.circular(Dimens.dimen_16),
+      ),
+      child: Icon(
+        Icons.lock_outline,
+        color: Theme.of(context).colorScheme.onPrimary,
+        size: Dimens.dimen_30,
       ),
     );
   }
 
-  Widget loginButton(BuildContext context) {
-    return PrimaryButton(
-      label: context.localizations.login__login_btn_text,
-      onPressed: () => widget.viewModel.onLoginButtonClicked(),
+  Widget _welcomeTitle(BuildContext context) {
+    return Text(
+      context.localizations.login_new__welcome_title,
+      textAlign: TextAlign.center,
+      style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+            fontWeight: FontWeight.w900,
+          ),
     );
   }
 
-  Widget forgotPasswordButton(BuildContext context) {
+  Widget _ssoButton(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      child: PrimaryButton(
+        label: context.localizations.login_new__login_with_sso,
+        onPressed: () => widget.viewModel.onLoginWithSsoButtonClicked(),
+        minWidth: double.infinity,
+        padding: EdgeInsets.symmetric(vertical: Dimens.dimen_16),
+        borderRadius: Dimens.dimen_12,
+      ),
+    );
+  }
+
+  Widget _forgotPasswordButton(BuildContext context) {
     return TextButton(
+      style: TextButton.styleFrom(
+        padding: EdgeInsets.zero,
+        minimumSize: Size.zero,
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+      ),
       onPressed: () => widget.viewModel.onForgotPasswordButtonClicked(),
       child: Text(
-        context.localizations.login__forgot_password_text,
+        context.localizations.login_new__forgot_password_q,
         style: Theme.of(context).textTheme.labelMedium?.copyWith(
               color: Theme.of(context).colorScheme.primary,
+              decoration: TextDecoration.underline,
+              fontWeight: FontWeight.w700,
+              decorationColor: Theme.of(context).colorScheme.primary,
             ),
       ),
       onLongPress: () => widget.viewModel.onForgotPasswordButtonLongPressed(),
+    );
+  }
+
+  Widget _registerRow(BuildContext context) {
+    return Wrap(
+      alignment: WrapAlignment.center,
+      crossAxisAlignment: WrapCrossAlignment.center,
+      spacing: Dimens.dimen_6,
+      children: [
+        Text(
+          context.localizations.login_new__new_here,
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+              ),
+        ),
+        TextButton(
+          style: TextButton.styleFrom(
+            padding: EdgeInsets.zero,
+            minimumSize: Size.zero,
+            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          ),
+          onPressed: () {},
+          child: Text(
+            context.localizations.login_new__register,
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  color: Theme.of(context).colorScheme.primary,
+                  decoration: TextDecoration.underline,
+                  fontWeight: FontWeight.w700,
+                  decorationColor: Theme.of(context).colorScheme.primary,
+                ),
+          ),
+        ),
+      ],
     );
   }
 }

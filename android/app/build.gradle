@@ -52,7 +52,7 @@ flutter {
 android {
     def appCompileSdkVersion = flutter.compileSdkVersion.toInteger()
     def appNDKVersion = flutter.ndkVersion
-    def appPackageName = "com.mahfuznow.hello_flutter"
+    def appPackageName = "com.mahfuznow.flutterapp.app"
     def appCurrentFlavor = getCurrentFlavor()
     def appMinSdkVersion = 26
     def appTargetSdkVersion = flutter.targetSdkVersion
@@ -83,6 +83,10 @@ android {
         versionName appVersionName
 
         multiDexEnabled true
+
+        manifestPlaceholders += [
+                'appAuthRedirectScheme': 'com.mahfuznow.flutterapp.app'
+        ]
     }
 
     flavorDimensions += "env"

@@ -263,5 +263,15 @@
   "app_info__build_number": "Build Number",
   "@app_info__build_number": {
     "type": "text"
-  }
+  },
+  "login_new__welcome_title": "Welcome to the App",
+  "@login_new__welcome_title": {"type": "text"},
+  "login_new__login_with_sso": "Login with SSO",
+  "@login_new__login_with_sso": {"type": "text"},
+  "login_new__forgot_password_q": "Forgot Password?",
+  "@login_new__forgot_password_q": {"type": "text"},
+  "login_new__new_here": "New here?",
+  "@login_new__new_here": {"type": "text"},
+  "login_new__register": "Register",
+  "@login_new__register": {"type": "text"}
 }

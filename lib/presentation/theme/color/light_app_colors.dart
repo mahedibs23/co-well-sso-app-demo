@@ -4,7 +4,7 @@ import 'app_colors.dart';
 
 class LightAppColors extends AppColors {
   @override
-  Color get primary => const Color(0xFF04589b);
+  Color get primary => const Color(0xFF007BFF);
 
   @override
   Color get onPrimary => const Color(0xFFFFFFFF);

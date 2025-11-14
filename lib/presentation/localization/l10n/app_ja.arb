@@ -235,5 +235,15 @@
   "navigation_item__settings": "設定",
   "@navigation_item__settings": {
     "type": "text"
-  }
+  },
+  "login_new__welcome_title": "アプリへようこそ",
+  "@login_new__welcome_title": {"type": "text"},
+  "login_new__login_with_sso": "SSOでログイン",
+  "@login_new__login_with_sso": {"type": "text"},
+  "login_new__forgot_password_q": "パスワードをお忘れですか？",
+  "@login_new__forgot_password_q": {"type": "text"},
+  "login_new__new_here": "初めてですか？",
+  "@login_new__new_here": {"type": "text"},
+  "login_new__register": "登録",
+  "@login_new__register": {"type": "text"}
 }

@@ -5,7 +5,7 @@ import 'app_colors.dart';
 class DarkAppColors extends AppColors {
   @override
   @override
-  Color get primary => const Color(0xff0983e3);
+  Color get primary => const Color(0xFF007BFF);
 
   @override
   Color get onPrimary => const Color(0xFFFFFFFF);
